@@ -1,0 +1,129 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+template<typename T>
+class graph{
+
+   map<T,list<T> >adj;
+
+   public:
+
+       void addedge(T u, T v, bool bidir=false)
+       {
+           adj[u].push_back(v);
+           if(bidir)
+           adj[v].push_back(u);
+       }
+
+       void bfs(T src)
+       {
+           queue<T>q; map<T,bool>visited;
+           q.push(src); visited[src]=true;
+
+           while(!q.empty())
+           {
+               T node = q.front();
+               q.pop();
+               cout<<node<<" ";
+               for(auto neighbour:adj[node])
+               {
+                   if(!visited[neighbour])
+                      q.push(neighbour);
+               }
+           }
+
+       }
+
+       void sssp(T src)
+       {
+           queue<T>q; map<T,int>distance;
+           distance[src]=0; q.push(src);
+
+           while(!q.empty())
+           {
+               T node=q.front();
+               q.pop();
+
+               for(auto neigbr:adj[node])
+               {
+                   if(distance[neigbr]==0)
+                   {
+                       distance[neigbr]+=distance[node]+1;
+                       q.push(neigbr);
+                   }
+               }
+           }
+
+           for(auto node:distance)
+           {
+               cout<<" distance of "<<node.first<<" from "<<src<<" is "<<distance[node.first]<<endl;
+           }
+
+       }
+
+       void dfshelper(T src, map<T,bool>&visited,list<T>&order)
+       {
+            visited[src]=true;
+           for(auto i:adj[src])
+           {
+               if(!visited[i])
+               {
+                  // cout<<i.first<<" ";
+                   dfshelper(i,visited,order);
+               }
+           }
+
+           order.push_front(src);
+       }
+
+       void dfs(T src, map<T,bool>&visited, list<T>&order)
+       {
+           //map<T,bool>visited;
+           dfshelper(src,visited,order);
+       }
+
+       void topological_sort()
+       {
+           map<T,bool>visited; list<T>order;
+
+           for(auto i:adj)
+           {
+               if(!visited[i.first])
+               {
+                   dfs(i.first,visited,order);
+               }
+           }
+
+           for(auto i:order)
+           {
+               cout<<i<<"-->";
+           }
+       }
+
+
+};
+
+int main()
+{
+    graph<int>g;
+    g.addedge(1,2);
+    g.addedge(1,3);
+    g.addedge(2,4);
+    g.addedge(3,5);
+    g.addedge(3,6);
+    g.addedge(4,5);
+    g.addedge(1,2);
+    g.addedge(4,7);
+    g.addedge(5,6);
+    g.addedge(5,7);
+    g.addedge(6,8);
+    g.addedge(7,8);
+    g.topological_sort();
+
+    return 0;
+}
+
+
+
+
+
