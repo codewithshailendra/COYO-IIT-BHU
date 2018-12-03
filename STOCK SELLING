@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void fun(int*a,int n, vector< pair<int,int> >&v)
+{
+    if(n==1)
+       return ;
+       
+    int count=0;   
+      
+    int i=0;
+    
+    while(i<(n-1)) 
+    {
+          while(i<n-1 && a[i]>=a[i+1])
+                  i++;
+                  
+            if(i==n-1)
+               break;
+              
+           int buy = i++;
+           
+           while(i<n && a[i-1]<=a[i])
+                  i++;
+                  
+            int sell = i-1; 
+            
+            v.push_back(make_pair(buy,sell));
+            
+            
+            count++;
+            
+            if(count>0)
+              cout<<"("<<buy<<" "<<sell<<")"<<" ";
+            
+           
+           
+              
+    }
+    
+    if(count==0)
+     cout<<"No Profit";
+    
+    
+    cout<<endl;
+    
+    
+    
+    
+    
+}
+
+
+
+int main() {
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int n; cin>>n;
+	    int a[n];
+	    
+	    for(int i=0;i<n;i++)
+	    {
+	        cin>>a[i];
+	    }
+	    
+	    vector< pair<int,int> >v;
+	    
+	    fun(a,n,v);
+	}
+	
+	return 0;
+}
