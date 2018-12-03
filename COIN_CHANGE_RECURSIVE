@@ -1,0 +1,81 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int dp[1000005][105],a[105],total,n;
+/*
+int fun(int sum,int i)
+{
+
+  if(dp[sum][i]!=-1)
+     return dp[sum][i];
+
+
+
+
+  if(sum+a[i]<=total)
+  {
+    dp[sum][i]=dp[sum+a[i]][i]+dp[sum][i+1];
+  }
+  else
+   dp[sum][i] = dp[sum][i+1];
+
+   return dp[sum][i];
+
+
+
+
+
+
+
+
+} */
+
+int fun(int i,int sum)
+{
+    if(sum==total)
+        return 1;
+
+
+
+    if(i==n)
+     return 0;
+
+
+     if(sum+a[i]<=total)
+        return fun(i,sum+a[i])+fun(i+1,sum);
+
+      return fun(i+1,sum);
+}
+
+
+
+int main()
+{
+     int t; cin>>t;
+
+     while(t--)
+     {
+           cin>>n;
+          for(int i=0;i<n;i++)
+              cin>>a[i];
+
+              memset(dp,-1,sizeof(dp));
+
+           cin>>total;
+
+           cout<<fun(0,0)<<endl;
+     }
+
+
+
+
+
+
+
+
+
+
+
+	return 0;
+}
