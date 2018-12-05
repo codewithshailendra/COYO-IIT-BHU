@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+void build_tree(int*a,int s,int e,int*tree,int index)
+{
+    if(s==e)
+        {tree[index]=a[s]; return;}
+
+    int mid=(s+e)/2;
+
+    build_tree(a,s,mid,tree,2*index);
+    build_tree(a,mid+1,e,tree,2*index+1);
+
+    tree[index] = min(tree[2*index],tree[2*index+1]);
+    return;
+}
+
+int query(int*tree,int ts,int te,int qs,int qe,int index)
+{   // complete overlap
+    if(ts>=qs && te<=qe)
+        return tree[index];
+
+    // No overlap
+
+    if(qs>te || qe<ts)
+        return INT_MAX;
+
+    //partial overlap
+
+    int mid=(ts+te)/2;
+    int left_min = query(tree,ts,mid,qs,qe,2*index);
+    int right_min = query(tree,mid+1,te,qs,qe,2*index+1);
+    return min(left_min,right_min);
+
+
+}
+
+
+
+
+
+
+int main()
+{
+    int n; cin>>n; int a[n];
+
+    int tree[4*n+1];
+    memset(tree,INT_MAX,sizeof(tree));
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+
+    build_tree(a,0,n-1,tree,1);
+
+   /* for(int i=1;i<=13;i++)
+    {
+        cout<<tree[i]<<" ";
+    }
+    */
+    int l,r; cin>>l>>r;
+    cout<<query(tree,0,n-1,l,r,1)<<endl;
+
+    return 0;
+
+}
