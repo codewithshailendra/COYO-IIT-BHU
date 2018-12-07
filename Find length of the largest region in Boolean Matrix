@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//map<int,vector<int> >adj;
+//map<int,bool>visited;
+
+int n,m;
+ bool visited[100][100];
+
+int a[100][100];
+
+bool is_safe(int i,int j)
+{
+    return (i>=0 && i<n && j<m && j>=0 && a[i][j] && !visited[i][j]);
+}
+
+
+
+
+
+void dfs(int i,int j,int &countr)
+{
+   int row[8] = {-1,-1,-1,0,0,1,1,1};
+   int col[8] = {-1,0,1,-1,1,-1,0,1};
+
+   visited[i][j] = true;
+
+   for(int k=0;k<8;k++)
+   {
+       if(is_safe(i+row[k],j+col[k]))
+       {   countr++;
+           dfs(i+row[k],j+col[k],countr);
+       }
+   }
+
+}
+
+
+
+
+int main()
+{
+    cin>>n>>m;
+
+   for(int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {
+           cin>>a[i][j];
+       }
+   }
+
+
+   memset(visited,0,sizeof(visited));
+   int largest_region=0,count_region=0;
+
+   for(int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {  int counting=1;
+           if( a[i][j] && visited[i][j]==0)
+             {
+                 count_region++;
+                 dfs(i,j,largest_region);
+
+             }
+
+             largest_region=max(largest_region,counting);
+       }
+   }
+
+   cout<<"No_of_regions : "<<count_region<<endl;
+   cout<<"maximum nodes in a region : "<<largest_region<<endl;
+
+
+
+
+    return 0;
+}
