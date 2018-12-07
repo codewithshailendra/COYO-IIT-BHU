@@ -1,0 +1,126 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int n,m;
+//vector< pair<int,int> >ladders,snakes;
+map<int,int>mover;
+
+int fun()
+{
+
+    map<int,bool>visited; map<int,int>distance;
+
+    for(int i=1;i<=100;i++)
+    {
+
+      visited[i]=false;
+      distance[i]=0;
+
+     }
+
+     queue<int>q; q.push(1); visited[1]=true; distance[1]=0;
+
+     while(!q.empty())
+     {
+
+          int node = q.front();
+          q.pop();
+
+          if(node==100)
+           {
+             break;
+           }
+
+          for(int j=node+1;j<=node+6;j++)
+          {
+               if(!visited[j])
+               {
+                  visited[j]=true;
+
+                  if(mover[j]!=-1)
+                  {
+                     distance[mover[j]] = 1+distance[node];
+                     q.push(mover[j]);
+                     //q.push(mover[j]);
+
+                  }
+                  else
+                  {
+                     distance[j]=1+distance[node];
+                      q.push(j);
+
+
+                  }
+               }
+          }
+
+
+
+
+     }
+
+  return distance[100];
+
+}
+
+
+
+int main() {
+
+  int t; cin>>t;
+
+  while(t--)
+  {
+    int n; cin>>n;
+
+    for(int i=1;i<=100;i++)
+         mover[i]=-1;
+
+    while(n--)
+    {
+      int a,b; cin>>a>>b;
+      //ladders.push_back(make_pair(a,b));
+      mover[a]=b;
+    }
+
+    cin>>m;
+
+    while(m--)
+    {
+      int a,b; cin>>a>>b;
+      //snakes.push_back(make_pair(a,b));
+      mover[a]=b;
+
+
+    }
+
+
+
+    cout<<"ANSWER IS :"<<fun()<<endl;
+   // distance.clear();
+    mover.clear();
+
+
+
+
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	return 0;
+}
