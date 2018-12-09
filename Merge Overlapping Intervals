@@ -1,0 +1,100 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector< pair<int,int> >vp;
+vector< pair<int,int> >ans;
+
+void fun(int n)
+{
+    sort(vp.begin(),vp.end());
+    int i=1;
+    stack< pair<int,int> >sp;
+    sp.push(vp[0]);
+    int start = vp[0].first;
+    
+   while(i<n)
+   {
+       if(vp[i].first<=sp.top().second)
+       {
+           if(vp[i].second>sp.top().second)
+           {
+               sp.push(vp[i]);
+           }
+           
+           
+       }
+       else
+       {
+           int ending=sp.top().second;
+           ans.push_back(make_pair(start,ending));
+           
+           while(!sp.empty())
+           {
+               sp.pop();
+           }
+           sp.push(vp[i]);
+           start = vp[i].first;
+           if(i==n-1)
+            {
+                int ending = vp[i].second;
+                ans.push_back(make_pair(start,ending));
+                sp.pop();
+                break;
+            }
+       }
+       i++;
+   }
+   
+   if(!sp.empty())
+   {
+       ans.push_back(make_pair(start,sp.top().second));
+       
+   }
+   
+   while(!sp.empty())
+        sp.pop();
+   
+   for(auto x:ans)
+      cout<<x.first<<" "<<x.second<<" ";
+      
+    cout<<endl;  
+    
+  ans.clear();
+  vp.clear();
+  
+   
+}
+
+
+
+
+int main() {
+	int t; cin>>t;
+
+	while(t--)
+	{
+	    int n; cin>>n;
+
+
+	    for(int i=0;i<n;i++)
+	    {
+	        int a,b; cin>>a>>b;
+	        vp.push_back(make_pair(a,b));
+	    }
+
+	    fun(n);
+
+
+
+
+	}
+
+
+
+
+
+
+
+
+	return 0;
+}
