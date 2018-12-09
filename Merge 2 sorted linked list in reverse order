@@ -1,0 +1,63 @@
+struct Node * mergeResult(Node *node1,Node *node2)
+{
+    // your code goes here
+    
+    if(node1==NULL && node2==NULL)
+       return NULL;
+       
+    
+    Node*res=NULL;
+    
+    while(node1!=NULL && node2!=NULL)
+    {
+          if(node1->data>=node2->data)
+          {
+              Node*temp=node2->next;
+              
+              node2->next = res;
+              res = node2;
+              node2=temp;
+              
+          }
+          else
+          {
+               
+            
+              Node*temp=node1->next;
+              
+              node1->next = res;
+              res = node1;
+              node1=temp;
+              
+            
+         }   
+          
+    
+   }
+   
+         
+          while(node1!=NULL)
+          {
+              Node*temp=node1->next;
+              node1->next=res;
+              res=node1;
+              node1=temp;
+          }
+          
+          while(node2!=NULL)
+          {
+              Node*temp = node2->next;
+              node2->next = res;
+              res=node2;
+              node2=temp;
+          }
+          
+          return res;
+    
+    
+    
+    
+    
+    
+    
+}
