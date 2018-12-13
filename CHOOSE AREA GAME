@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int fun(int a,int b,int lives,int entry)
+{
+    if(a<0 || b<0)
+       return lives-1;
+       
+       int x=INT_MIN,y=INT_MIN,z=INT_MIN;
+    
+    if(entry!=1)
+    {
+         x=fun(a+3,b+2,lives+1,1);
+    }
+     if(entry!=2)
+    {
+        
+          y=fun(a-5,b-10,lives+1,2);
+    }
+    
+      if(entry!=3)
+    {
+        
+         
+          z=fun(a-20,b+5,lives+1,3);
+    }
+    
+   
+    
+    
+    return max(x,max(y,z));
+    
+}
+
+
+
+int main()
+{
+    
+    cout<<fun(20,8,0,0)<<endl;
+    return 0;
+}
