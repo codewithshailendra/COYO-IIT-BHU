@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n,a[100005];
+
+int fun()
+{
+   int ans=0,j=0;
+   
+   set<int>s;
+   
+   for(int i=0;i<n;i++)
+   {
+       while(j<n && s.find(a[j])==s.end())
+       {
+           s.insert(a[j]);
+           j++;
+       }
+       
+       ans+=((j-i)*(j-i+1))/2;
+       
+       s.erase(a[i]);
+       
+       
+       
+   }
+   
+   return ans;
+   
+}
+
+
+int main() {
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    cin>>n;
+	    for(int i=0;i<n;i++)
+	       cin>>a[i];
+	       
+	    
+	    cout<<fun()<<endl;    
+	}
+	
+	
+	
+	
+	
+	return 0;
+}
