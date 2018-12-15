@@ -1,3 +1,3 @@
 # COYO-IIT-BHU
 Competitive programming workshop
-graphs basics uploaded
+Chief mentor : SHAILENDRA UPADHYAY and SHREYASH JAIN
