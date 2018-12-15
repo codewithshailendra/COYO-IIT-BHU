@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+string string_window(string s1,string s2)
+{
+  int n1=s1.length();
+  int n2=s2.length();
+
+  if(n2>n1)
+    return "No string";
+
+
+  int hash1[256],hash2[256];
+  fill(hash1,hash1+256,0); fill(hash2,hash2+256,0);
+
+  for(auto x:s2)
+      hash2[x]++;
+
+  int start=0,starting_index=-1,min_length=INT_MAX,count=0;
+int i=0;
+
+  for(auto x:s1)
+  {
+
+      hash1[x]++;
+
+      if(hash2[x]!=0 && hash2[x]>=hash1[x])
+          count++;
+
+      if(count==n2)
+      {
+          while(hash1[s1[start]]>hash2[s1[start]] || hash2[s1[start]]==0)
+                {
+                    if(hash1[s1[start]]>hash2[s1[start]])
+                         hash1[s1[start]]--;
+
+                    start++;
+                }
+
+
+
+          int length_window = i-start+1;
+
+          if(min_length>length_window)
+            {
+              min_length=length_window;
+              starting_index = start;
+            }
+
+
+      }
+
+    i++;
+
+  }
+
+  if(starting_index==-1)
+    return "No string";
+
+
+  return s1.substr(starting_index,min_length);
+
+
+
+
+}
+
+
+int main() {
+
+  string s1,s2;
+  getline(cin,s1);
+  getline(cin,s2);
+
+  cout<<string_window(s1,s2)<<endl;
+
+
+
+	return 0;
+
+
+
+}
