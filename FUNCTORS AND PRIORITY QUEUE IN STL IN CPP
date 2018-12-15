@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class car
+{
+public:
+    int x;
+    int y;
+    int id;
+
+    car(int id,int x,int y)
+    {
+        this->id=id;
+        this->x=x;
+        this->y=y;
+    }
+
+    int distance()
+    {
+        return x*x+y*y;
+    }
+
+    void print()
+    {
+        cout<<"ID "<<id;
+        cout<<"LOCATION :"<<x<<" , "<<y<<endl;
+    }
+
+};
+
+// functors - Functional Objects
+
+class carcompare{
+
+public:
+    // Method to overload() operator
+
+    bool operator()(car a, car b)
+    {
+        return a.distance() > b.distance();
+    }
+
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+   //priority_queue<int,vector<int>,greater<int> >pq;
+   priority_queue<car,vector<car>,carcompare>pq;
+
+   int x[10]={5,6,17,18,9,11,0,3};
+   int y[10]={1,-2,8,9,10,91,1,2};
+
+   //Insert these 8 cars in the priority queue.
+   for(int i=0;i<8;i++)
+   {
+       car c(i,x[i],y[i]);
+       pq.push(c);
+   }
+
+   // Heap-max!!
+
+   int poppings=1;
+
+   while(!pq.empty() && poppings<=3)
+   {
+       car p=pq.top();
+       p.print();
+       pq.pop();
+       poppings++;
+
+   }
+
+
+}
