@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+map<int,vector<int> >Adj;
+
+bool cycle_detection(int source)
+{
+    map<int,bool>visited; map<int,int>parent; queue<int>q;
+    visited[source]=true; parent[source]=source; q.push(source);
+
+
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+
+        for(auto neighbour:Adj[node])
+        {
+            if(visited[neighbour]==true && parent[node]!=neighbour)
+                return true;
+            else if(!visited[neighbour])
+            {
+                q.push(neighbour);
+                visited[neighbour]=true;
+                parent[neighbour]=node;
+            }
+        }
+
+
+        }
+
+        return false;
+
+
+}
+
+
+
+
+
+
+
+
+
+int main()
+{
+    int edges; cin>>edges;
+
+    for(int i=1;i<=edges;i++)
+    {
+        int a,b; cin>>a>>b;
+        Adj[a].push_back(b);
+        Adj[b].push_back(a);
+    }
+
+    cout<<cycle_detection(0)<<endl;
+    Adj.clear();
+
+    return 0;
+}
