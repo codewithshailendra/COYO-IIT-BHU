@@ -1,0 +1,169 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define MOD 1000000000
+
+ll k;
+vector<ll> a,b,c;
+
+vector< vector<ll> > multiply(vector< vector<ll> >a,vector< vector<ll> >b)
+{
+    // another matrix which store result
+
+    vector< vector<ll> > c(k+1,vector<ll>(k+1));
+
+    for(int i=1;i<=k;i++)
+    {
+        for(int j=1;j<=k;j++)
+        {
+            for(int x=1;x<=k;x++)
+            {
+                c[i][j] = (c[i][j]+(a[i][x]*b[x][j])%MOD)%MOD;
+            }
+        }
+    }
+
+    return c;
+}
+
+
+
+
+
+
+vector< vector<ll> > power(vector< vector<ll> > a, ll p)
+{
+    // Base case
+    if(p==1)
+        return a;
+
+    // recursive case
+
+    if(p&1)
+    {
+        return multiply(a,power(a,p-1));
+    }
+    else
+    {
+        vector< vector<ll> > x = power(a,p/2);
+        return multiply(x,x);
+    }
+
+
+}
+
+
+
+
+
+
+ll compute(ll n)
+{    // base cae
+    if(n==0)
+        return 0;
+    //suppose n<=k
+    if(n<=k)
+       return b[n-1];
+
+    // other we will use matrix exponentiation, indexing start from 1.
+
+    vector<ll>F1(k+1);
+
+    for(int i=1;i<=k;i++)
+    {
+        F1[i] = b[i-1];
+    }
+
+    // Create a transformation matrix;
+
+    vector< vector<ll> > T(k+1,vector<ll>(k+1));
+
+    // Let initialize T;
+
+    for(int i=1;i<=k;i++)
+    {
+        for(int j=1;j<=k;j++)
+        {
+            if(i<k)
+            {
+                if(j==i+1)
+                   T[i][j]=1;
+                else
+                    T[i][j]=0;
+
+                continue;
+            }
+            // last row
+            T[i][j]=c[k-j];
+        }
+    }
+
+    // compute T^(n-1)
+
+    T = power(T,n-1);
+
+    // multiply by F1
+
+    ll ans=0;
+    for(int i=1;i<=k;i++)
+    {
+        ans = (ans+ (T[1][i]*F1[i])%MOD)%MOD;
+    }
+
+
+
+    return ans;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+    ll t ,n,num;
+    cin>>t;
+
+    while(t--)
+    {   cin>>k;
+        // Init F1 vector
+        for(int i=0;i<k;i++)
+        {
+            cin>>num;
+            b.push_back(num);
+        }
+
+        // coefficient input
+         for(int i=0;i<k;i++)
+        {
+            cin>>num;
+            c.push_back(num);
+        }
+
+
+        // th value of n
+        cin>>n;
+        cout<<"answer is : "<<compute(n)<<endl;
+
+        c.clear();
+        //a.clear();
+        b.clear();
+
+
+
+
+    }
+
+    return 0;
+}
