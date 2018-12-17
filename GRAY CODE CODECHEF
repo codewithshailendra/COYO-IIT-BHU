@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+# define ll unsigned long long
+
+int main()
+{
+   ll n; vector<ll>v;   cin>>n;
+   
+   for(ll i=0;i<n;i++)
+   {
+       ll no;
+       cin>>no;
+       
+       if(n<130)
+       {
+       v.push_back(no);
+       } 
+       
+                      
+   
+   }
+   
+    if(n>=130)
+        {cout<<"Yes"<<endl;
+           return 0;
+        
+        }   
+   
+   // brute force for small values , 4 nested loops to pick for nos.
+   
+   for(ll i=0;i<n;i++)
+   {
+        for(ll j=i+1;j<n;j++)
+        {
+            for(ll k=j+1;k<n;k++)
+            {
+                for(ll p=k+1;p<n;p++)
+                {
+                     if((v[i]^v[j]^v[k]^v[p])==0)
+                     {
+                         cout<<"Yes"<<endl;
+                         return 0;
+                     }
+                }
+            }
+        }
+   }
+   
+   
+   
+   
+   cout<<"No"<<endl;
+   
+   return 0;
+   
+   
+
+}
