@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void fun(bool*primes)
+{
+    fill(primes,primes+100000,true);
+    primes[1]=false;
+    primes[0]=false;
+    
+    for(int i=2;i<=100000;i++)
+    {
+        if(primes[i])
+        {
+            for(int j=2*i;j<100000;j+=i)
+            {
+                primes[j]=false;
+            }
+        }
+    }
+    
+    return;
+    
+    
+    
+}
+
+
+
+
+
+
+
+int main()
+{
+    bool primes[100000];
+    
+    fun(primes);
+    
+    cout<<primes[19]<<endl;
+    
+    
+    
+    
+    
+}
