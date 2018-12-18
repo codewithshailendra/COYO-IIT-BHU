@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+  float p,sum=1.0; cin>>p;
+
+   float i=0;
+
+   while(1.0-p<=sum)
+   {
+       sum=sum*((365-i)/(365));
+       i++;
+   }
+
+   cout<<i<<endl;
+
+
+
+
+
+	return 0;
+}
