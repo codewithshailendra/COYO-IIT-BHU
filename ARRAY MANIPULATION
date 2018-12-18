@@ -1,0 +1,29 @@
+long arrayManipulation(int n, vector<vector<int>> queries) {
+
+    map<long,long>mp;
+    
+
+     int q=queries.size();
+
+     for(int i=0;i<q;i++)
+     {
+         int l=queries[i][0];
+         int r=queries[i][1];
+         int k=queries[i][2];
+
+        mp[l]+=k;
+        mp[r+1]-=k;
+    }
+    
+    long sum=0,maxi=INT_MIN;
+     for(auto x:mp)
+     {
+         sum+=x.second;
+         if(sum>maxi)
+          maxi=sum;
+     }
+
+
+   return maxi;
+
+}
