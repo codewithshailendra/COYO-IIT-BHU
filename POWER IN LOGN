@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int power(int n,int p)
+{
+  if(n==1 || p==0)
+     return 1;
+     
+  int small_ans=power(n,p/2);
+  small_ans=small_ans*small_ans;
+  
+  if(p&1)
+    return n*small_ans;
+    
+  return small_ans;  
+}
+
+
+
+
+
+int main() {
+  
+  int n,p; cin>>n>>p;
+  
+  cout<<power(n,p)<<endl;
+  
+  
+  
+  
+  
+  
+  
+  
+	return 0;
+}
