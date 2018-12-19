@@ -1,0 +1,42 @@
+# include<bits/stdc++.h>
+using namespace std;
+# define ll long long
+ll suffix[1000006];
+
+ll fun(ll*a,ll i,ll k,ll n,ll sum)
+{
+       if(k==0)
+           return sum;
+       
+        if(i==n-1)
+           return sum+a[i];
+    
+      return max(fun(a,i+1,k-1,n,sum+a[i]),sum+suffix[n-k]);
+    
+}
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    
+       ll n,k;   cin>>n>>k;  ll a[n];
+        
+    for(ll i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    
+    
+    suffix[n-1]=a[n-1];
+    
+    for(ll i=n-2;i>=0;i--)
+        suffix[i]=suffix[i+1]+a[i];
+    
+   
+    
+    cout<<fun(a,1,k-1,n,a[0])<<endl;
+   
+    
+    
+    return 0;
+}
