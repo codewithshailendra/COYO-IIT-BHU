@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int maxsubsum(int*a,int n)
+{
+    int sum=0,maxi=INT_MIN;int max_value=INT_MIN;
+
+    for(int i=0;i<n;i++)
+    {
+       sum=max(sum+a[i],0);
+       maxi=max(sum,maxi);
+       max_value= max(max_value,a[i]);
+
+
+    }
+
+    if(maxi==0)
+        return max_value;
+
+    return maxi;
+
+
+}
+
+
+
+
+int main()
+{
+    int n; cin>>n; int a[n];
+
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+
+    cout<<maxsubsum(a,n)<<endl;
+
+    return 0;
+}
