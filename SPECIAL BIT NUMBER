@@ -1,0 +1,71 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+# define ll long long
+
+ll a[1000000];
+
+
+
+
+bool special_bit(ll n)
+{ 
+    ll countr=0;
+    while(n)
+    {
+        if(n&1)
+        {
+            countr++;
+        }
+        else
+            countr=0;
+        
+        if(countr==2)
+            return true;
+        
+        n=n>>1;
+    }
+    
+    return false;
+    
+      
+    
+}
+
+
+
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */ 
+    
+    ll n,q;   cin>>n>>q;
+    ll sbarr[n+1];
+    fill(sbarr,sbarr+n,0);
+    
+    for(ll i=0;i<n;i++)
+    {
+        cin>>a[i];
+        if(special_bit(a[i]))
+            sbarr[i+1]=sbarr[i]+1;
+        else
+            sbarr[i+1]=sbarr[i];
+    
+    }
+    
+    while(q--)
+    {
+        int l,r; cin>>l>>r;
+        
+        cout<<sbarr[r]-sbarr[l-1]<<endl;
+        
+    }
+    
+    
+    
+    
+    return 0;
+}
