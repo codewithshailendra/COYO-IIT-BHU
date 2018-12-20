@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int a[1001];
+int BIT[1002];
+int n;
+
+void update(int i,int incre)
+{
+    while(i<=n)
+    {
+        BIT[i]+=incre;
+        i+=(i&(-i));
+    }
+}
+
+int query(int i)
+{
+    int sum=0;
+
+    while(i>0)
+    {
+        sum+=BIT[i];
+        i-= (i&(-i));
+    }
+
+    return sum;
+}
+
+void build_BIT()
+{
+    for(int i=1;i<=n;i++)
+    {
+        update(i,a[i]);
+    }
+}
+
+
+
+
+
+
+int main()
+{
+    memset(a,0,sizeof(a));
+    memset(BIT,0,sizeof(BIT));
+     cin>>n;
+
+    for(int i=1;i<=n;i++)
+        cin>>a[i];
+
+    build_BIT();
+
+    int q; cin>>q;
+
+    while(q--)
+    {
+        int l,r; cin>>l>>r;
+
+        cout<<query(r)-query(l-1)<<endl;
+    }
+
+
+
+}
