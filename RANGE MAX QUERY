@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int a[1001];
+int BIT[1002];
+int n;
+
+void update(int i,int value)
+{
+    while(i<=n)
+    {
+        BIT[i]=max(BIT[i],value);
+        i+=(i&(-i));
+    }
+}
+
+int query(int i)
+{
+    int maxi=INT_MIN;
+
+    while(i>0)
+    {
+        maxi=max(BIT[i],maxi);
+        i-= (i&(-i));
+    }
+
+    return maxi;
+}
+
+void build_BIT()
+{
+    for(int i=1;i<=n;i++)
+    {
+        update(i,a[i]);
+    }
+}
+
+int main()
+{
+    memset(a,0,sizeof(a));
+    memset(BIT,0,sizeof(BIT));
+     cin>>n;
+
+    for(int i=1;i<=n;i++)
+        cin>>a[i];
+
+    build_BIT();
+
+    int q; cin>>q;
+
+    update(2,1000);
+
+    while(q--)
+    {
+        int index; cin>>index;
+
+        cout<<query(index)<<endl;
+    }
+
+    return 0;
+
+}
