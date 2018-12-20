@@ -1,0 +1,89 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+// square root decomposition.
+// problem : ragne sum query.
+
+int query(int*block,int*a,int l,int r,int rn)
+{
+	int ans=0;
+     // left part of the query.
+	while( l<r && l!=0 && l%rn!=0)
+	{
+		ans+=a[l];
+		l++;
+	}
+
+     // Middle part.
+
+	while(l+rn<=r)
+	{    int block_id = l/rn;
+		ans+=block[block_id];
+		l+=rn;
+	}
+
+	// rightmost part of the query.
+
+	while(l<=r)
+	{
+		ans+=a[l];
+		l++;
+	}
+
+     return ans;
+
+
+
+}
+
+
+
+void update(int*block,int*a,int i,int value,int rn)
+{
+	int block_id = i/rn;
+	block[block_id]+= (value-a[i]);
+	a[i]=value;
+	return;
+}
+
+
+
+
+
+int main()
+{
+     int a[] = {1,3,5,2,7,6,3,1,4,8};
+     int n = sizeof(a)/sizeof(int);
+
+     // build a blocks array.
+      int root_n = sqrt(n);
+     int*block =  new int[root_n+1]{0};
+
+
+
+     int block_id = -1;
+
+     for(int i=0;i<n;i++)
+     {
+     	if(i%root_n==0)  // at multiples of root_n start the new_block.
+     	{
+          block_id++;
+     	}
+
+          block[block_id] += a[i];
+
+     }
+     // print the blocks array.
+
+    /* for(int i=0;i<=root_n;i++)
+     	   cout<<block[i]<<endl;
+   // building this block array takes o(N) time, so this is preprocessing.
+     */
+
+      update(block,a,2,15,root_n);
+     int l,r; cin>>l>>r;
+     cout<<query(block,a,l,r,root_n)<<endl;
+
+     return 0;
+
+}
