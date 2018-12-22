@@ -1,0 +1,62 @@
+
+void merging(int*a,int l1,int r1,int l2,int r2)
+{
+    int i,j,k;
+    int n1=r1-l1+1;
+    int n2=r2-l2+1;
+    int left[n1],right[n2];
+
+    for( i=0;i<n1;i++)
+    {
+        left[i]=a[l1+i];
+    }
+
+    for(int j=0;j<n2;j++)
+    {
+        right[j]=a[l2+j];
+    }
+
+    i=0;j=0;k=l1;
+
+    while(i<n1 && j<n2)
+    {
+        if(left[i]<right[j])
+            a[k++]=left[i++];
+        else
+            a[k++]=right[j++];
+    }
+
+    while(i<n1)
+        a[k++]=left[i++];
+
+    while(j<n2)
+        a[k++]=right[j++];
+
+
+    return;
+
+}
+
+
+
+
+
+
+void merge_sort(int*a,int s,int e)
+{
+    if(e>s)
+    {
+        int mid=s+(e-s)/2;
+
+    merge_sort(a,s,mid);
+    merge_sort(a,mid+1,e);
+    merging(a,s,mid,mid+1,e);
+
+    }
+
+
+    return;
+}
+
+
+
