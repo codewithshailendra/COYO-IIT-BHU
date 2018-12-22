@@ -1,0 +1,15 @@
+void insertion_sort(int*a,int n)
+{
+    for(int i=1;i<n;i++)
+    {
+        int current=a[i];
+        int j;
+        for( j=i-1;j>=0 && a[j]>current;j--)
+        {
+            a[j+1]=a[j];
+        }
+        a[j+1]=current;
+    }
+    
+    return;
+}
