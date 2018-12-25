@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+int parent[20];
+pair< int,pair<int,int> >edges[20];
+
+int find_parent(int x)
+{
+    if(parent[x]==-1)
+        return x;
+    return find_parent(parent[x]);
+}
+
+void kruskal_algorithm(int vertices,int e)
+{
+    memset(parent,-1,sizeof(parent));
+    vector< pair<int, pair<int,int> > >v;
+    sort(edges,edges+e);
+    int countr=0,sum=0;
+
+    for(int i=0;i<e;i++)
+    {
+        int node1=edges[i].second.first;
+        int node2=edges[i].second.second;
+        int edge_length = edges[i].first;
+        int x = find_parent(node1);
+        int y = find_parent(node2);
+
+        if(x!=y)
+        {
+            parent[x]=y; // or we can also do parent[y]=x;
+            v.push_back(edges[i]);
+            countr++;
+            sum+=edge_length;
+            if(countr==vertices-1)
+                break;
+        }
+    }
+
+    cout<<"total cost of path is : "<<sum<<endl;
+
+    for(auto x:v)
+    {
+        cout<<x.second.first<<"->"<<x.second.second<<":"<<x.first<<endl;
+    }
+
+    return;
+}
+
+int main()
+{
+    int v,e; cin>>v>>e;
+    edges[0]=make_pair(8,make_pair(1,2));
+    edges[1]=make_pair(4,make_pair(1,0));
+    edges[2]=make_pair(8,make_pair(0,7));
+    edges[3]=make_pair(1,make_pair(6,7));
+    edges[4]=make_pair(2,make_pair(5,6));
+    edges[5]=make_pair(10,make_pair(5,4));
+    edges[6]=make_pair(9,make_pair(4,3));
+    edges[7]=make_pair(7,make_pair(3,2));
+    edges[8]=make_pair(11,make_pair(1,7));
+    edges[9]=make_pair(7,make_pair(7,8));
+    edges[10]=make_pair(2,make_pair(2,8));
+    edges[11]=make_pair(4,make_pair(2,5));
+    edges[12]=make_pair(14,make_pair(3,5));
+    edges[13]=make_pair(6,make_pair(6,8));
+
+    kruskal_algorithm(v,e);
+
+    return 0;
+
+
+
+
+}
