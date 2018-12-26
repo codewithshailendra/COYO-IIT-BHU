@@ -1,0 +1,11 @@
+
+M=1000000007
+
+def xorAndSum(a, b):
+    print(type(a)) # for debugging
+    a=int(a,2)
+    b=int(b,2)
+    ans=0
+    for i in range(0,314160):
+        ans+=a^(b<<i)
+    return (ans%(M))
