@@ -1,0 +1,25 @@
+int evenForest(int t_nodes, int t_edges, vector<int> t_from, vector<int> t_to) {
+
+        int e=t_from.size();   
+        for(int i=0;i<e;i++)
+        {
+            adj[t_from[i]].push_back(t_to[i]);
+            adj[t_to[i]].push_back(t_from[i]);
+            edges[i]=make_pair(t_from[i],t_to[i]);
+        }
+         int ans=0;
+        for(int i=0;i<e;i++)
+        {
+               if(bfs(edges[i].first,edges[i].second)%2==0 && bfs(edges[i].second,edges[i].first)%2==0 )
+               {
+                   ans++;
+                   auto f=find(adj[edges[i].first].begin(),adj[edges[i].first].end(),edges[i].second);
+                   
+                   if(f!=adj[edges[i].first].end())
+                      adj[edges[i].first].erase(f);
+               }
+        }
+
+        return ans;
+
+}
