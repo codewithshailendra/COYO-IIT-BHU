@@ -1,0 +1,88 @@
+// Complete the candies function below.
+long candies(int n, vector<int> arr) {
+
+    long sum=0;
+     int current=1;
+     int dp[n];
+     memset(dp,0,sizeof(dp));
+
+    if(arr[0]>arr[1])
+    {
+       dp[0]=2;
+       dp[1]=1;
+       current=1;
+
+       for(int i=2;i<n;i++)
+       {
+           if(arr[i]>arr[i-1])
+           {
+               current++;
+               dp[i]=current;
+           }
+           else
+           {
+               current=1;
+               dp[i]=current;
+           }
+       }
+
+       for(int i=n-2;i>=0;i--)
+       {
+           if(arr[i]>arr[i+1])
+           {
+               if(dp[i]>dp[i+1])
+                  continue;
+               else
+                {
+                    dp[i]=dp[i+1]+1;
+                }   
+           }
+       }
+
+       for(int i=0;i<n;i++)
+          sum+=dp[i];
+
+
+    }
+    else
+    {
+         
+        dp[0]=1;
+       
+       current=1;
+
+       for(int i=1;i<n;i++)
+       {
+           if(arr[i]>arr[i-1])
+           {
+               current++;
+               dp[i]=current;
+           }
+            else
+           {
+               current=1;
+               dp[i]=current;
+           }
+       }
+
+       for(int i=n-2;i>=0;i--)
+       {
+           if(arr[i]>arr[i+1])
+           {
+               if(dp[i]>dp[i+1])
+                  continue;
+               else
+                {
+                    dp[i]=dp[i+1]+1;
+                }   
+           }
+       }
+
+       for(int i=0;i<n;i++)
+          sum+=dp[i];
+    
+    }
+ 
+    return sum;
+
+}
