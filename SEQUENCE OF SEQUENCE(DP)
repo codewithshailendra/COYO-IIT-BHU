@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+
+int fun(int i,int last,int countr)
+{
+    if(countr==n)
+       return 1;
+       
+    if(i>m)
+       return 0;
+       
+    if(i>=2*last) 
+       return fun(i+1,i,countr+1)+fun(i+1,last,countr);
+    else
+       return fun(i+1,last,countr);
+}
+
+int fun_dp()
+{
+    int dp[n+1][m+1];
+    memset(dp,0,sizeof(dp));
+    
+   for(int i=0;i<=n;i++)
+   {
+       for(int j=0;j<=m;j++)
+       {
+           if(i==0 || j==0)
+             dp[i][j]=0;
+            else if(i>j)
+              dp[i][j]=0;
+            else if(i==1)
+               dp[i][j]=j;
+            else
+               dp[i][j]= dp[i][j-1] + dp[i-1][j/2];
+              
+       }
+   }
+    
+    
+   int ans=dp[n][m];
+
+    return ans;         
+    
+    
+}
+
+
+
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    cin>>m>>n;
+	    cout<<fun_dp()<<endl;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	return 0;
+}
