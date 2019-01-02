@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,a[1005];
+
+int fun(int i,int prev,int len)
+{
+    if(i==n)
+       return len;
+       
+    if(prev==-1)
+      return max(fun(i+1,i,len+1),fun(i+1,prev,len));
+    
+    if(a[i]>a[prev])
+      return max(fun(i+1,i,len+1),fun(i+1,prev,len));
+    else
+      return fun(i+1,prev,len);
+    
+}
+
+
+int main() {
+	
+	int t; cin>>t;
+	while(t--)
+	{
+	    cin>>n;
+	    for(int i=0;i<n;i++)
+	    {
+	        cin>>a[i];
+	    }
+	    
+	    cout<<fun(0,-1,0)<<endl;
+	}
+	
+	
+	
+	
+	return 0;
+}
