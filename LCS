@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n1,n2;
+string s1,s2;
+
+int fun(int i,int j,int len)
+{
+    if(i==n1 || j==n2)
+       return len;
+       
+    if(s1[i]==s2[j])
+      return fun(i+1,j+1,len+1);
+      
+    return max(fun(i+1,j,len),fun(i,j+1,len));  
+}
+
+int fun_dp()
+{
+    int dp[n1+1][n2+1];
+    memset(dp,0,sizeof(dp));
+    
+    for(int i=1;i<=n1;i++)
+    {
+        for(int j=1;j<=n2;j++)
+        {
+            if(s1[i-1]==s2[j-1])
+              dp[i][j]=1+dp[i-1][j-1];
+            else
+              dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+        }
+    }
+    
+    
+    return dp[n1][n2];
+}
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    cin>>n1>>n2>>s1>>s2;
+	    cout<<fun_dp()<<endl;
+	}
+	
+	
+	
+	
+	
+	
+	return 0;
+}
