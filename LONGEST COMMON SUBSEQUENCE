@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n1,n2;
+string s1,s2;
+
+int fun(int i,int j,int len)
+{
+    if(i==n1 || j==n2)
+       return len;
+       
+    if(s1[i]==s2[j])
+      return fun(i+1,j+1,len+1);
+      
+    return max(fun(i+1,j,len),fun(i,j+1,len));  
+}
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    cin>>n1>>n2>>s1>>s2;
+	    cout<<fun(0,0,0)<<endl;
+	}
+	
+	
+	
+	
+	
+	
+	return 0;
+}
