@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+
+int fun(int i,int last,int countr)
+{
+    if(countr==n)
+       return 1;
+       
+    if(i>m)
+       return 0;
+       
+    if(i>=2*last) 
+       return fun(i+1,i,countr+1)+fun(i+1,last,countr);
+    else
+       return fun(i+1,last,countr);
+}
+
+
+
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    cin>>m>>n;
+	    cout<<fun(1,-1,0)<<endl;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	return 0;
+}
