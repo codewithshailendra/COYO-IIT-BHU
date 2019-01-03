@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+# define ll long long
+/*
+ll fun()
+{
+    ll dp[n];
+    memset(dp,0,sizeof(dp));
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i-1;j>=0;j--)
+        {
+            if(dp[j]*a[i]<k)
+            {
+                dp[]
+            }
+        }
+    }
+}
+*/
+
+int fun_rec(ll*a,ll n,ll i,ll p,ll k)
+{
+    if(i==n)
+      return 0;
+      
+    if(a[i]*p<k)
+     return 1+fun_rec(a,n,i+1,a[i]*p,k)+fun_rec(a,n,i+1,p,k);
+    else
+      return fun_rec(a,n,i+1,p,k);
+}
+
+
+
+
+
+
+int main()
+{
+      ll n,k; cin>>n>>k;
+      ll a[n];
+      
+      for(ll i=0;i<n;i++)
+      {
+          cin>>a[i];
+      }
+      
+      cout<<fun_rec(a,n,0,1,k)<<endl;
+      
+    return 0;      
+}
