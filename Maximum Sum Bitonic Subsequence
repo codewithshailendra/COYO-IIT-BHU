@@ -1,0 +1,126 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n,a[55];
+
+int fun(int i,int prev,int sum,bool flag)
+{
+    if(i==n)
+       return sum;
+       
+    int x1,x2,x3;  
+    
+    if(prev==-1)
+    {
+        int p=max(fun(i+1,i,sum+a[i],flag),fun(i+1,i,sum+a[i],~flag));
+        int q=fun(i+1,prev,sum,flag);
+        
+        return max(p,q);
+    }
+    
+       
+    if(a[i]>a[prev] && flag)
+      {
+           x1=max(fun(i+1,i,sum+a[i],flag),fun(i+1,i,sum+a[i],~flag));
+          
+      }
+    
+    if(a[prev]>a[i] && ~flag)
+    {
+         x2=fun(i+1,i,sum+a[i],flag);
+    }
+    
+     x3=fun(i+1,prev,sum,flag);
+     
+     
+    return max(x1,max(x2,x3)); 
+    
+    
+}
+
+int fun_dp()
+{
+    
+    int dpi[n],dpd[n];  memset(dpi,0,sizeof(dpi)); memset(dpd,0,sizeof(dpd));
+    
+    for(int i=0;i<n;i++)
+    {
+        int maxi=INT_MIN;
+        
+        for(int j=i-1;j>=0;j--)
+        {
+            if(a[i]>a[j])
+              maxi=max(maxi,dpi[j]);
+        }
+        
+        if(maxi==INT_MIN)
+           maxi=0;
+           
+        dpi[i]=maxi+a[i];   
+        
+    }
+    
+    
+     for(int i=n-1;i>=0;i--)
+    {
+        int maxi=INT_MIN;
+        
+        for(int j=i+1;j<n;j++)
+        {
+            if(a[i]>a[j])
+              maxi=max(maxi,dpd[j]);
+        }
+        
+        if(maxi==INT_MIN)
+           maxi=0;
+           
+        dpd[i]=maxi+a[i];   
+        
+    }
+    
+    
+    int ans=INT_MIN;
+    
+    for(int i=0;i<n;i++)
+        ans=max(ans,dpi[i]+dpd[i]-a[i]);
+        
+        
+    return ans;    
+    
+    
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+int main() {
+    
+    int t; cin>>t;
+    
+    while(t--)
+    {
+        memset(a,0,sizeof(a));
+        cin>>n;
+        for(int i=0;i<n;i++)
+        {
+            cin>>a[i];
+        }
+        cout<<fun_dp()<<endl;
+        
+    }
+    
+    
+	
+	return 0;
+}
