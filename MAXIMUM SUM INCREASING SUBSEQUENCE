@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n,a[1000002];
+
+int fun()
+{
+    int dp[n];
+    
+    for(int i=0;i<n;i++)
+    {
+        int maxi=INT_MIN;
+        
+        for(int j=i-1;j>=0;j--)
+        {
+            if(a[i]>a[j])
+            {
+                maxi=max(maxi,dp[j]);
+            }
+        }
+        
+        if(maxi==INT_MIN)
+           maxi=0;
+           
+           
+        dp[i]=maxi+a[i];   
+        
+    }
+    
+    
+    return *max_element(dp,dp+n);
+}
+
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    cin>>n;
+	    for(int i=0;i<n;i++)
+	    {
+	        cin>>a[i];
+	    }
+	    
+	    cout<<fun()<<endl;
+	}
+	
+	
+
+	
+	return 0;
+}
