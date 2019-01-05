@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+# define ll long long
+
+ll n; ll a[100];
+
+ll fun()
+{  
+  ll dp[n];
+  
+  for(ll i=0;i<n;i++)
+     dp[i]=a[i];
+     
+     dp[1]+=a[0];
+     dp[2]+=max(dp[1],max(a[1]+a[2],a[0]+a[2]));
+     
+  
+  for(int i=3;i<n;i++)
+    dp[i]=max(dp[i-1],max(dp[i-2]+a[i],dp[i-3]+a[i]+a[i-2]));
+    
+    
+    return dp[n-1];
+       
+    
+}
+
+int main()
+{
+     cin>>n;
+    for(ll i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    
+    cout<<fun()<<endl;
+    
+    return 0;
+    
+}
