@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+/*
+int distance_matrix[100][100];
+
+void floyd_warshell()
+{
+    for(int k=1;k<=v;k++)
+    {
+        for(int i=1;i<=v;i++)
+        {
+            for(int j=1;j<=v;j++)
+            {
+                if(distance[i][j]>distance[i][k]+distance[k][j])
+                  distance[i][j]=distance[i][k]+distance[k][j];
+            }
+        }
+    }
+}
+*/
+
+
+int maxChainLen(pair<int,int>p[],int n)
+{
+
+    int dp[n];
+
+    sort(p,p+n);
+
+    for(int i=0;i<n;i++)
+    {
+         int maxi=INT_MIN;
+
+         for(int j=i-1;j>=0;j--)
+         {
+             if(p[j].second<p[i].first)
+               maxi=max(maxi,dp[j]);
+         }
+
+
+        if(maxi==INT_MIN)
+           maxi=0;
+
+        dp[i]=1+maxi ;
+    }
+
+
+
+    return *max_element(dp,dp+n);
+
+
+
+}
+int main()
+{
+   pair<int,int>p[2];
+
+   for(int i=0;i<2;i++)
+   {
+      cin>>p[i].first>>p[i].second;
+   }
+
+   cout<<maxChainLen(p,2);
+
+    return 0;
+}
