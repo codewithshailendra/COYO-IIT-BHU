@@ -1,0 +1,120 @@
+int Solution::maxSpecialProduct(vector<int> &a) {
+    
+    int maxi=INT_MIN;
+    
+   /* for(int i=0;i<a.size();i++)
+    {
+        int l,j;
+        
+        for( j=i-1;j>=0;j--)
+        {
+            if(a[j]>a[i])
+              {l=j; break;}
+        }
+        
+        if(j==-1)
+          l=0;
+          
+          
+        int r;  
+          
+        for( j=i+1;j<a.size();j++)
+        {
+            if(a[j]>a[i])
+              {r=j; break;}
+        }  
+        
+        
+        if(j==a.size())
+           r=0;
+           
+        int product=(l*r)%1000000007 ;
+        
+        if(product>maxi)
+          maxi=product;
+          
+          
+        
+          
+          
+    }*/
+    int n=a.size();
+    
+    int lmax[n],rmax[n];
+    
+    stack< pair<int,int> >s;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(s.empty())
+          {s.push(make_pair(a[i],i));
+              lmax[i]=0;
+          }
+         else if(a[i]>=s.top().first)
+         {
+             while( !s.empty()  && a[i]>=s.top().first)
+                   s.pop();
+                   
+                   
+                if(!s.empty())
+                  lmax[i]=s.top().second;
+                else
+                  lmax[i]=0;
+                  
+                s.push(make_pair(a[i],i));  
+             
+         }
+         else
+         {
+             lmax[i]=s.top().second;
+             s.push(make_pair(a[i],i));
+         }
+    }
+    
+    while(!s.empty())
+         s.pop();
+    
+     for(int i=n-1;i>=0;i--)
+    {
+        if(s.empty())
+          {s.push(make_pair(a[i],i));
+              rmax[i]=0;
+          }
+         else if(a[i]>=s.top().first)
+         {
+            while( !s.empty()  && a[i]>=s.top().first)
+                   s.pop();
+                   
+                   
+                if(!s.empty())
+                  rmax[i]=s.top().second;
+                else
+                  rmax[i]=0;
+                  
+                s.push(make_pair(a[i],i));         
+             
+         }
+         else
+         {
+             rmax[i]=s.top().second;
+             s.push(make_pair(a[i],i));
+         }
+    }
+    
+    int product;
+    
+  
+    for(int i=0;i<n;i++)
+    {
+        product=(lmax[i]*rmax[i])%1000000007;
+        
+        if(product>maxi)
+           maxi=product;
+    }
+    
+    return maxi;
+    
+    
+    
+    
+}
