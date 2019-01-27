@@ -1,0 +1,75 @@
+int Solution::maxSpecialProduct(vector<int> &a) 
+{
+    
+    long long n=a.size();
+    long long lmax[n],rmax[n];
+    stack< pair<long,long> >s;
+    
+    s.push(make_pair(a[0],0));
+    lmax[0]=0;
+    
+    for(long i=1;i<n;i++)
+    {
+        if(s.top().first>a[i])
+          {
+              lmax[i]=s.top().second;
+              s.push(make_pair(a[i],i));
+          }
+          else
+          {
+              while(!s.empty() && s.top().first<=a[i])
+                    s.pop();
+                    
+                    
+              if(s.empty())
+                 lmax[i]=0;
+              else
+                 lmax[i]=s.top().second;
+                 
+            s.push(make_pair(a[i],i));     
+          }
+    }
+    
+    while(!s.empty())
+          s.pop();
+    
+     s.push(make_pair(a[n-1],n-1));
+     rmax[n-1]=0;
+    
+    for(long i=n-2;i>=0;i--)
+    {
+        if(s.top().first>a[i])
+          {
+              rmax[i]=s.top().second;
+              s.push(make_pair(a[i],i));
+          }
+          else
+          {
+              while(!s.empty() && s.top().first<=a[i])
+                    s.pop();
+                    
+                    
+              if(s.empty())
+                 rmax[i]=0;
+              else
+                 rmax[i]=s.top().second;
+                 
+                 
+            s.push(make_pair(a[i],i));      
+          }
+    }
+    
+    long long maxi=INT_MIN;
+    
+    for(long long i=0;i<n;i++)
+    {
+        long long product=(lmax[i]*rmax[i])%1000000007;
+        
+        if(product>maxi)
+          maxi=product;
+    }
+    
+    return maxi;
+    
+    
+}
