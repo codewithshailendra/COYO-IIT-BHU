@@ -1,0 +1,26 @@
+int Solution::maxSubArray(const vector<int> &a) {
+    
+    int curr=a[0],maxi=a[0],maxele=a[0]; int n=a.size();
+    
+    for(int i=1;i<n;i++)
+    {
+        if(curr+a[i]<0)
+           curr=0;
+        else
+          curr+=a[i];
+          
+          
+        maxi=max(maxi,curr);
+        maxele=max(a[i],maxele);
+    }
+    
+    if(maxi==0)
+      return maxele;
+      
+    return maxi;  
+    
+    
+    
+    
+    
+}
