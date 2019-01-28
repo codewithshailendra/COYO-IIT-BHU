@@ -1,0 +1,36 @@
+vector<int> Solution::maxset(vector<int> &a) {
+    
+    long long curr_sum=0,maxi=INT_MIN; long n=a.size();
+    vector<int>ans,res;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(a[i]<0)
+          {   
+              if(curr_sum>maxi)
+              {
+                  maxi=curr_sum;
+                  res=ans;
+              }
+              curr_sum=0; ans.clear();
+          
+            
+              
+          }
+        else
+         {
+             curr_sum+=a[i];
+             ans.push_back(a[i]);
+         }
+         
+         
+    }
+    
+    if(curr_sum>maxi)
+    {
+        res=ans;
+    }
+    
+    return res;
+    
+}
