@@ -1,0 +1,90 @@
+void Solution::setZeroes(vector<vector<int> > &a) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    
+    int n=a.size(),m=a[0].size();
+    int r=1,c=1;
+    
+    for(int i=0;i<n;i++)
+       {
+           c=c&a[i][0];
+       }
+       
+       
+        for(int j=0;j<m;j++)
+       {
+           r=r&a[0][j];
+       }
+       
+       
+    
+    
+    
+    
+   for(int i=1;i<n;i++)
+   {
+       int it=1;
+       
+       for(int j=0;j<m;j++)
+       {
+           it=it&a[i][j];
+       }
+       
+       a[i][0]=it;
+   }
+   
+   for(int j=1;j<m;j++)
+   {
+       int it=1;
+       
+       for(int i=0;i<n;i++)
+       {
+           it=it&a[i][j];
+       }
+       
+       a[0][j]=it;
+       
+   }
+   
+   for(int i=1;i<n;i++)
+   {
+       if(a[i][0]==0)
+       {
+           for(int j=1;j<m;j++)
+                a[i][j]=0;
+       }
+   }
+   
+   
+    for(int j=1;j<m;j++)
+   {
+       if(a[0][j]==0)
+       {
+           for(int i=1;i<n;i++)
+                a[i][j]=0;
+       }
+   }
+   
+    
+   if(r==0)
+   {
+       for(int j=0;j<m;j++)
+          a[0][j]=0;
+   }
+   
+   if(c==0)
+   {
+       for(int i=0;i<n;i++)
+          a[i][0]=0;
+   }
+    
+    
+    
+    
+    
+    
+    
+}    
+    
