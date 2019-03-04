@@ -1,0 +1,35 @@
+# define ll long long int
+
+vector<int> Solution::repeatedNumber(const vector<int> &a) {
+    
+    ll n=a.size(), sn=n*(n+1)/2,tn=0,pn=n*(n+1)*(2*n+1)/6,kn=0;
+    
+    for(ll i=0;i<n;i++)
+    {
+        tn+=(long long)a[i];
+        kn+=(long long)a[i]*(long long)a[i];
+    }
+    
+    ll sd=sn-tn,sqd=pn-kn;
+    
+   ll imp=sqd/sd;
+   
+   ll repeated = (imp+sd)/2;
+   ll missed = (imp-sd)/2;
+   
+   
+  
+   
+ 
+   
+   
+    
+    vector<int>v;
+    
+    v.push_back(missed);
+    v.push_back(repeated);
+    
+return v;    
+    
+
+}
