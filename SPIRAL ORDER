@@ -1,0 +1,53 @@
+vector<vector<int> > Solution::generateMatrix(int a) {
+    
+    int n=a;
+    
+    vector< vector<int> >ans(n,vector<int>(n));
+    
+    
+    int lrs=0,lre=n-1;
+    int tds=1,tde=n-1;
+    int rls=n-2,rle=0;
+    int dts=n-2,dte=1;
+    
+    int rows=0,cols=n-1;
+    int rowe=n-1,cole=0;
+    
+    int k=1;
+    
+    
+    while(lre>=lrs || tde>=tds || rls>=rle || dts>=dte)
+    {
+         
+    for(int j=lrs;j<=lre;j++)
+        ans[rows][j]=k++;
+        
+    lrs++; lre--; rows++;
+    
+    
+    for(int i=tds;i<=tde;i++)
+        ans[i][cols]=k++;
+        
+    tds++; tde--; cols--;
+    
+    for(int j=rls;j>=rle;j--)
+         ans[rowe][j]=k++;
+         
+    rls--;rle++; rowe--;
+    
+    
+    for(int i=dts;i>=dte;i--)
+          ans[i][cole]=k++;
+          
+    dts--; dte++; cole++; 
+        
+    }
+        
+    
+    
+    return ans;
+    
+    
+    
+    
+}
