@@ -1,0 +1,36 @@
+vector<int> Solution::getRow(int A) {
+    
+    int n=A+1;
+    
+    vector<int>v;
+    v.push_back(1);
+    
+    if(n==1)
+      return v;
+      
+    v.push_back(1);  
+      
+    if(n==2)
+       return v;
+       
+    
+    vector<int>p;
+    
+    for(int k=3;k<=n;k++)
+    {
+        
+        p.push_back(1);
+        
+        for(int i=1;i<k-1;i++)
+        {
+            p.push_back(v[i]+v[i-1]);
+        }
+        
+        p.push_back(1);
+        v=p;
+        p.clear();
+    }
+       
+    return v;
+    
+}
