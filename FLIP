@@ -1,0 +1,55 @@
+vector<int> Solution::flip(string a) {
+    
+    int n=a.length();
+    
+    int csum=0,ans=0;
+    
+   
+    
+    map<char,int>mp;
+    mp['0']=1;
+    mp['1']=-1;
+    
+    pair<int,int>p=make_pair(INT_MAX,INT_MAX);
+    int start=0;
+    
+    for(int i=0;i<n;i++)
+    {
+       if(csum+mp[a[i]]<0)
+       {
+           csum=0;
+           start=i+1;
+       }
+       else
+       {
+           csum+=mp[a[i]];
+       }
+       
+       if(csum>ans)
+       {
+           ans=csum;
+           p.first=start;
+           p.second=i;
+       }
+        
+    }
+    
+    vector<int>v;
+    
+    
+    
+      
+    if(p.first==INT_MAX)
+     return v;
+     
+     
+     v.push_back(p.first+1);
+     v.push_back(p.second+1);
+     
+     return v;
+    
+   
+    
+   
+    
+}
