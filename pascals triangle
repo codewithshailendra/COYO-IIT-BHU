@@ -1,0 +1,44 @@
+vector<vector<int> > Solution::solve(int a) {
+    
+    vector< vector<int> >ans;
+    
+    if(a==0)
+      return ans;
+    
+    int p=1;
+    vector<int>v1;
+    v1.push_back(1);
+    ans.push_back(v1);
+    
+    if(a==1)
+      return ans;
+    v1.push_back(1);
+    ans.push_back(v1);
+    
+    if(a==2)
+      return ans;
+    
+    for(int i=2;i<a;i++)
+    {
+        vector<int>v;
+        
+        v.push_back(1);
+        
+        for(int k=1;k<i;k++)
+        {
+            v.push_back(ans[p][k]+ans[p][k-1]);
+            
+        }
+        p++;
+         v.push_back(1);
+        
+        ans.push_back(v);
+        v.clear();
+        
+    }
+    
+    return ans;
+    
+    
+    
+}
