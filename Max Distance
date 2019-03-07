@@ -1,0 +1,46 @@
+int Solution::maximumGap(const vector<int> &a) {
+    
+ vector< pair<int,int> >vp;
+ 
+ int n=a.size();
+ 
+ if(n==1)
+   return 0;
+ 
+ 
+   for(int i=0;i<n;i++)
+   {
+       vp.push_back(make_pair(a[i],i));
+   }
+   
+   
+   sort(vp.begin(),vp.end());
+   
+   int suffix[n],maxi=INT_MIN;
+   
+   for(int i=n-1;i>=0;i--)
+   {
+       maxi=max(maxi,vp[i].second);
+       suffix[i]=maxi;
+   }
+   
+   int ans=INT_MIN;;
+   
+   for(int i=0;i<n-1;i++)
+   {
+       if(suffix[i+1]>vp[i].second)
+          ans=max(ans,suffix[i+1]-vp[i].second);
+   }
+   
+   if(ans==INT_MIN)
+       return 0;
+ 
+ 
+    return ans;
+    
+    
+    
+    
+    
+    
+}
