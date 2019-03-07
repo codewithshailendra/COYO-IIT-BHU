@@ -1,0 +1,44 @@
+int Solution::repeatedNumber(const vector<int> &a) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+     int sqrtn=sqrt(a.size()-1);
+     
+     int store[sqrtn];
+     
+     fill(store,store+sqrtn,0); int check=0;
+     
+     for(int i=0;i<a.size();i++)
+         {
+             store[a[i]/sqrtn]++;
+             if(store[a[i]/sqrtn]>sqrtn)
+                check=a[i]/sqrtn;
+             
+         }
+         
+         map<int,int>mp;
+         
+         for(int i=0;i<a.size();i++)
+         {
+             if(a[i]>=check && a[i]<=sqrtn+check)
+                mp[a[i]]++;
+                
+            if(mp[a[i]]>1)
+              return a[i];
+         }
+          
+     
+     
+     
+       return -1;
+     
+
+  
+    
+    
+    
+    
+    
+    
+}
