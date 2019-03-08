@@ -1,0 +1,45 @@
+vector<int> Solution::primesum(int a) {
+    
+    vector<bool>p(a+1);
+    
+    for(int i=0;i<p.size();i++)
+         p[i]=true;
+    
+    p[0]=false;
+    p[1]=false;
+    p[2]=true;
+    
+    for(int i=4;i<p.size();i+=2)
+        p[i]=false;
+        
+        
+    for(int i=3;i<p.size();i++)
+    {
+        if(p[i]==true)
+        {
+            for(int j=i*i;j<p.size();j+=2*i)
+                p[j]=false;
+        }
+    }
+    
+    vector<int>v;
+    
+    for(int i=2;i<p.size();i++)
+    {
+        if(p[i])
+        {
+            v.push_back(i);
+            if(a-i>=0 && p[a-i])
+                {
+                    v.push_back(a-i);
+                    return v;
+                }
+                
+                v.clear();
+              
+        }
+    }
+    
+    
+    
+}
