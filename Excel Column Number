@@ -1,0 +1,12 @@
+int Solution::titleToNumber(string a) {
+    
+    int n=a.length(),sum=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        sum=sum*26+(a[i]-'A'+1);
+    }
+    
+    
+    return sum;
+}
