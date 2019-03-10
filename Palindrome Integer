@@ -1,0 +1,25 @@
+int Solution::isPalindrome(int a) {
+    int n=a,rev=0,digit=0;
+    
+    while(n>0)
+    {
+        digit=n%10;
+        
+        
+         if (rev > (INT_MAX / 10) || (rev == (INT_MAX / 10) && digit > (INT_MAX % 10)))
+                    return 0;
+        
+        rev=rev*10+digit;
+        
+        n=n/10;
+    }
+   
+    
+    if(a==rev)
+      return 1;
+      
+    return 0;  
+    
+    
+    
+}
