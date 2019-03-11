@@ -1,0 +1,21 @@
+vector<string> Solution::fizzBuzz(int A) {
+    
+    int n=A;
+    vector<string>v;
+    
+    for(int i=1;i<=n;i++)
+    {
+        if(i%3==0 && i%5==0)
+           {v.push_back("FizzBuzz"); continue;}
+        
+        if(i%3==0)
+        {v.push_back("Fizz"); continue;}
+        
+        if(i%5==0)
+        {v.push_back("Buzz"); continue;}
+        
+        v.push_back(to_string(i));
+    }
+    
+    return v;
+}
