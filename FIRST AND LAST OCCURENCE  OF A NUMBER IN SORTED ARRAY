@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int binary_search(int*a,int n,int k,bool flag)
+{
+    int high=n-1, low=0,result=-1;
+    
+    while(high>=low)
+    {
+    
+    int mid= low+ (high-low)/2;
+    
+       if(a[mid]==k)
+       {  
+          if(flag==true)
+           high=mid-1;
+          else
+            low=mid+1;
+          result=mid;
+       }
+       else if(k<a[mid])
+       high=mid-1;
+       else
+       low=mid+1;
+       
+       
+      }
+      
+      
+      return result;
+
+
+
+}
+
+
+
+int main() {
+	int a[]={1,2,2,2,2,2,2,2,2,2,2,2,3,4,5};
+	cout<<"First ocurence :"<<binary_search(a,sizeof(a)/sizeof(int),2,true)<<endl;
+	cout<<"Last ocurence :"<<binary_search(a,sizeof(a)/sizeof(int),2,false)<<endl;
+	return 0;
+}
