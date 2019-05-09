@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int binary_search(int*a,int n,int k)
+{
+    int high=n-1, low=0;
+    
+    while(high>=low)
+    {
+    
+    int mid= low+ (high-low)/2;
+    
+       if(a[mid]==k)
+       {  
+          return mid;
+       }
+       else if(k<a[mid])
+       high=mid-1;
+       else
+       low=mid+1;
+      }
+      
+      
+      return -1;
+
+
+
+}
+
+
+
+int main() {
+	int a[5]={1,2,3,4,5};
+	cout<<binary_search(a,5,4)<<endl;
+	return 0;
+}
