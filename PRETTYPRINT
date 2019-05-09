@@ -1,0 +1,51 @@
+vector<vector<int> > Solution::prettyPrint(int A) {
+    
+    int sz=2*A-1;
+    vector< vector<int> >v(sz,vector<int>(sz));
+    
+    int row1=0,col1=sz-1,row2=sz-1,col2=0;
+    
+    for(int p=A;p>=1;p--)
+    {
+        for(int j=row1;j<=sz-1-row1;j++)
+        {
+            v[row1][j] = p;
+        }
+        row1++;
+        
+        for(int i=sz-1-col1+1;i<=col1;i++)
+        {
+            v[i][col1]=p;
+        }
+        
+        col1--;
+        
+        for(int j=row2-1;j>=sz-1-row2;j--)
+        {
+            v[row2][j]=p;
+        }
+        
+        row2--;
+        
+        
+        for(int i=sz-1-col2;i>=col2+1;i--)
+        {
+            v[i][col2]=p;
+        }
+        
+        col2++;
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    return v;
+    
+    
+    
+    
+}
