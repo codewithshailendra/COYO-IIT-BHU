@@ -1,0 +1,101 @@
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+ 
+ 
+ bool interact(Interval a, Interval b)
+ {
+     return !(max(a.start,b.start)>min(a.end,b.end));
+ }
+ 
+
+vector<Interval> Solution::insert(vector<Interval> &intervals, Interval newInterval) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+int sz=intervals.size();
+vector<Interval>result;
+
+
+if(sz==0)
+  {
+      result.push_back(newInterval);
+      return result;
+  }
+
+
+
+
+
+if(newInterval.start>intervals[sz-1].end || newInterval.end<intervals[0].start)
+  {
+      if(newInterval.end<intervals[0].start)
+         {
+             result.push_back(newInterval);
+         }
+         
+        for(auto x:intervals)
+        {
+            result.push_back(x);
+        }
+         
+         
+        if(newInterval.start>intervals[sz-1].end)
+       {
+           result.push_back(newInterval);
+       }
+       
+       return result;
+  }
+  
+  
+  for(int i=0;i<sz;i++)
+  {
+      bool check=interact(intervals[i],newInterval);
+      
+      if(!check)
+      {
+          result.push_back(intervals[i]);
+          
+          if(i<sz-1 && intervals[i].end<newInterval.start && intervals[i+1].start>newInterval.end)
+               result.push_back(newInterval);
+               
+           continue;       
+               
+      }
+      
+      
+      // check for overlapping
+  
+      int st=i;
+      while(i<sz && check)
+      {
+          i++;
+          if(i==sz)
+             check=false;
+          else
+            check=interact(intervals[i],newInterval);
+      }
+      i--;
+      
+      Interval toInsert(min(newInterval.start, intervals[st].start), max(newInterval.end, intervals[i].end));
+                result.push_back(toInsert);
+                
+                
+              
+      
+      
+  }
+  
+  return result;  
+  
+  
+ }
