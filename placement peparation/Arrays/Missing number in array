@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	
+	int q; cin>>q;
+	
+	while(q--)
+	{
+	    long long int n,a,sum=0,osum=0; cin>>n;
+	    
+	    for(int i=1;i<=n-1;i++)
+	    {
+	        cin>>a;
+	        sum+=a;
+	    }
+	    
+	    osum = (n)*(n+1)/2;
+	    
+	    cout<<osum-sum<<endl;
+	}
+	
+	
+	
+	return 0;
+}
