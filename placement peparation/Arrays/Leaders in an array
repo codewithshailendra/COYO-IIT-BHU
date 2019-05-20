@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int q; cin>>q; stack<int>s;
+	
+	while(q--)
+	{
+	    int n; cin>>n; int a[n];
+	    for(int i=0;i<n;i++)
+	    {
+	        cin>>a[i];
+	    }
+	    
+	    int high=a[n-1];
+	    
+	    
+	    for(int i=n-2;i>=0;i--)
+	    {
+	        high=max(high,a[i]);
+	        
+	        if(a[i]>=high)
+	          s.push(a[i]);
+	    }
+	    
+	    while(!s.empty())
+	       {
+	           cout<<s.top()<<" ";
+	            s.pop();
+	       }
+	       cout<<a[n-1]<<" ";
+	    cout<<endl;
+	    
+	}
+	
+	
+	
+	
+	
+	
+	return 0;
+}
