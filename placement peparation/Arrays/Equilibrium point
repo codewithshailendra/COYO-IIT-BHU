@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	
+	int q; cin>>q;
+	int n;
+	while(q--)
+	{
+	     cin>>n;
+	    
+	    if(n==1)
+	    {
+	        cout<<1<<endl;
+	        
+	    }
+	   else
+	   {
+	    int a[n];
+	    for(int i=0;i<n;i++)
+	        cin>>a[i];
+	    
+	    int ps[n],ss[n]; fill(ps,ps+n,0); fill(ss,ss+n,0);
+	    ps[0]=a[0]; ss[n-1]=a[n-1];
+	    bool flag=true;
+	    for(int i=1;i<n;i++)
+	    {
+	        ps[i]+=ps[i-1]+a[i];
+	    }
+	    
+	    for(int i=n-2;i>=0;i--)
+	    {
+	        ss[i]+=ss[i+1]+a[i];
+	    }
+	    
+	    for(int i=1;i<n-1;i++)
+	    {
+	        if(ps[i-1]==ss[i+1])
+	           {cout<<i+1<<endl;
+	               flag=false;
+	           }
+	    }
+	    
+	    if(flag)
+	     cout<<-1<<endl;
+	   } 
+	}
+	
+	return 0;
+}
