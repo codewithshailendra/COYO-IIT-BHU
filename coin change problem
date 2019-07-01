@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fun(int *a,int n,int sum)
+{
+    int dp[sum+1][n];
+    
+    memset(dp,0,sizeof(dp));
+    
+    for(int j=0;j<n;j++)
+       dp[0][j]=1;
+       
+    for(int i=1;i<=sum;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            int x = (i-a[j]>=0) ? dp[i-a[j]][j]:0;
+            
+            int y = (j>=1) ? dp[i][j-1]:0;
+            
+            dp[i][j]=x+y;
+        }
+    }
+    
+    return dp[sum][n-1];
+}
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	while(t--)
+	{
+	    int n; cin>>n;
+	    int a[n];
+	    
+	    for(int i=0;i<n;i++)
+	    {
+	        cin>>a[i];
+	    }
+	    int sum; cin>>sum;
+	    
+	    cout<<fun(a,n,sum)<<endl;
+	}
+	
+	
+	return 0;
+}
