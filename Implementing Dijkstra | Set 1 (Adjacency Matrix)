@@ -1,0 +1,46 @@
+void dijkstra(vector<vector<int>> graph, int src, int v)
+{
+    set< pair<int,int> >s;
+    map<int,int>distance;
+    
+    for(int i=0;i<v;i++)
+       distance[i]=INT_MAX;
+       
+      distance[src]=0;
+      
+      s.insert(make_pair(0,src));
+      
+      while(!s.empty())
+      {
+          auto p = *s.begin();
+          int node= p.second;
+          int node_distance=p.first;
+          
+          s.erase(s.begin());
+          
+        for(int i=0;i<graph[node].size();i++)
+        {
+             if(distance[i]!=0)
+             {
+                 if(distance[i]>graph[node][i]+distance[node])
+                 {
+                     int destination = i;
+                     auto f=s.find(make_pair(distance[i],i));
+                     
+                     if(f!=s.end())
+                     {
+                         s.erase(f);
+                     }
+                     
+                     distance[destination]=graph[node][i]+distance[node];
+                     s.insert(make_pair(distance[destination],destination));
+                 }
+             }
+        }
+          
+    }
+      
+      for(auto x:distance)
+         cout<<x.second<<" ";
+      
+}
