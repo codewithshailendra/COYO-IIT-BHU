@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fun(int*val,int*w,int n,int weight,int i,int ans,int curr_weight)
+{
+    if(i==n)
+      return ans;
+      
+     int x=INT_MIN,y=INT_MIN; 
+      
+    if(w[i]+curr_weight<=weight)
+     x=fun(val,w,n,weight,i+1,ans+val[i],w[i]+curr_weight);
+    
+     y=fun(val,w,n,weight,i+1,ans,curr_weight);
+     
+     return max(x,y);
+     
+    
+      
+}
+
+
+
+
+
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int n,weight; cin>>n>>weight; int val[n],w[n];
+	    
+	    for(int i=0;i<n;i++)
+	       cin>>val[i];
+	       
+	   for(int i=0;i<n;i++)
+	       cin>>w[i];
+	       
+	    cout<<fun(val,w,n,weight,0,0,0)<<endl;    
+	    
+	    
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	return 0;
+}
