@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fun(int n,int k)
+{
+    if(k==1 || k==0)
+       return k;
+       
+    if(n==1)
+       return k;
+       
+    int ans= INT_MAX;  
+       
+    for(int x=1;x<=k;x++)
+    {
+        ans=min(ans,max(fun(n-1,x-1),fun(n,k-x)));
+    }
+    
+    return ans+1;
+}
+
+
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int n,k; cin>>n>>k;
+	    cout<<fun(n,k)<<endl;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	return 0;
+}
