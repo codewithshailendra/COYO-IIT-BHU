@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fun(string s)
+{
+    if(s.length()==1)
+      return 1;
+
+    if(s[0]==s[s.length()-1])
+      return 2+fun(s.substr(1,s.length()-2));
+    else
+     return max(fun(s.substr(1,s.length()-1)),fun(s.substr(0,s.length()-1)));
+
+
+}
+
+
+
+int main() {
+
+    string s("ABABA");
+
+    cout<<fun(s)<<endl;
+
+
+
+
+return 0;
+}
