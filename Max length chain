@@ -1,0 +1,24 @@
+int maxChainLen(struct val p[],int n)
+{
+
+   int dp[n]; fill(dp,dp+n,1);
+   
+   for(int i=1;i<n;i++)
+   {
+       
+       for(int j=0;j<i;j++)
+       {
+           if(p[i].first>p[j].second && dp[j]+1>dp[i])
+              dp[i]=1+dp[j];
+       }
+       
+       
+   }
+
+
+  return *max_element(dp,dp+n);
+
+
+
+
+}
