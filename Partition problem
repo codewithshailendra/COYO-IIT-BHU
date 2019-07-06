@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool fun1(int*a,int n, int i, int curr_sum, int s)
+{
+    if(curr_sum==s)
+      return true;
+    
+    if(i==n && curr_sum!=s)
+    return false;
+    
+    if(curr_sum+a[i]<=s)
+      return fun1(a,n,i+1,curr_sum+a[i],s) || fun1(a,n,i+1,curr_sum,s);
+    else
+      return fun1(a,n,i+1,curr_sum,s);
+      
+    
+}
+
+bool fun(int*a, int n,int s)
+{
+    bool dp[s+1][n+1];
+    
+    for(int i=0;i<=n;i++)
+        dp[0][i]=true;
+        
+    for(int i=1;i<=s;i++)
+        dp[i][0]=false;
+        
+    for(int i=1;i<=s;i++)
+    {
+        for(int j=1;j<=n;j++)
+        {
+            dp[i][j]=dp[i][j-1];
+            if(i>=a[j-1])
+             dp[i][j] = dp[i][j] || dp[i-a[j-1]][j-1];
+        }
+    }
+    
+    
+    return dp[s][n];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main() {
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int n; cin>>n;
+	    int a[n]; int s=0;
+	    
+	    for(int i=0;i<n;i++)
+	       {cin>>a[i]; s+=a[i];}
+	       
+	   if(s&1)
+	     cout<<"NO"<<endl;
+	   else
+	   {
+	       if(fun(a,n,s/2))
+	        cout<<"YES"<<endl;
+	       else
+	        cout<<"NO"<<endl;
+	   }
+	     
+	       
+	}
+	
+	
+	
+	return 0;
+}
