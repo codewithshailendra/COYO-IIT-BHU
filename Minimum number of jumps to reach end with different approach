@@ -1,0 +1,96 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fun1(int*a, int n)
+{
+     int dp[n];
+     if(a[0]==0)
+        return -1;
+     dp[0]=0;
+     
+     for(int i=1;i<n;i++)
+     { 
+         dp[i]=INT_MAX;
+         
+         for(int j=0;j<i;j++)
+         {
+             if(i-j<=a[j] && dp[j]!=-1)
+               dp[i]=min(dp[i],1+dp[j]);
+         }
+         
+         if(dp[i]==INT_MAX)
+            dp[i]=-1;
+     }
+     
+     return dp[n-1];
+}
+
+int fun(int*a, int n)
+{
+    int dp[n]; dp[n-1]=0;
+    
+    for(int i=n-2;i>=0;i--)
+    {
+        if(a[i]==0)
+           dp[i]=INT_MAX;
+        else if(n-1-i<=a[i])
+            dp[i]=1;
+        else
+        {
+            int mini=INT_MAX;
+            
+            for(int j=i+1;j<n && a[i]+i>=j;j++)
+            {
+                mini=min(mini,dp[j]);
+            }
+            
+            if(mini!=INT_MAX)
+              dp[i]=1+mini;
+            else
+              dp[i]=mini;
+        }
+        
+    }
+    
+    
+    int ans=dp[0];
+    
+    if(ans!=INT_MAX)
+       return ans;
+    else
+       return -1;
+    
+    
+}
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int n; cin>>n; int a[n];
+	    
+	    for(int i=0;i<n;i++)
+	       cin>>a[i];
+	       
+	     cout<<fun(a,n)<<endl;    
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	return 0;
+}
