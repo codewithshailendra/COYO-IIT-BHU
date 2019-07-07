@@ -28,7 +28,11 @@ class graph{
                for(auto neighbour:adj[node])
                {
                    if(!visited[neighbour])
-                      q.push(neighbour);
+                      {
+                         visited[neighbour]=true;
+                        q.push(neighbour);
+                      
+                      }
                }
            }
 
