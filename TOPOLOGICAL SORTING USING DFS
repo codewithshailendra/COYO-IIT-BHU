@@ -1,0 +1,48 @@
+void dfs(int root, vector<int> *adj,list<int> &l, map<int,bool> &visited)
+{
+     visited[root]=true;
+    
+    for(auto x:adj[root])
+    {
+        if(!visited[x])
+          {
+                visited[x]=true;
+              dfs(x,adj,l,visited);
+          }
+    }
+    
+    l.push_front(root);
+}
+
+
+
+
+int* topoSort(int v, vector<int> adj[])
+{
+    map<int,bool>visited; 
+    list<int>l;
+    
+    for(int i=0;i<v;i++)
+    {
+        if(!visited[i])
+         dfs(i,adj,l,visited);
+    }
+    
+    int*a = new int[v];
+    int i=0;
+    for(x:l)
+      a[i++]=x;
+      
+      return a;
+    
+  /*  int a[v];
+    for(int i=0;i<v;i++)
+    {
+        a[i]=l.front();
+        l.pop_front();
+    }
+    
+    return a;*/
+    
+    
+}
