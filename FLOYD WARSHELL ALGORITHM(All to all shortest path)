@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int v; cin>>v; int m[v][v];
+	    
+	    for(int i=0;i<v;i++)
+	    {
+	        for(int j=0;j<v;j++)
+	        {
+	            cin>>m[i][j];
+	        }
+	    }
+	    
+	    for(int k=0;k<v;k++)
+	    {
+	        for(int i=0;i<v;i++)
+	        {
+	            for(int j=0;j<v;j++)
+	            {
+	                if(m[i][k]+m[k][j]<m[i][j])
+	                  m[i][j]=m[i][k]+m[k][j];
+	            }
+	        }
+	    }
+	    
+	    for(int i=0;i<v;i++)
+	    {
+	        for(int j=0;j<v;j++)
+	        {
+	            if(m[i][j]!=10000000)
+	            cout<<m[i][j]<<" ";
+	            else
+	             cout<<"INF"<<" ";
+	        }
+	        
+	        cout<<endl;
+	    }
+	    
+	    
+	    
+	}
+
+	
+	return 0;
+}
