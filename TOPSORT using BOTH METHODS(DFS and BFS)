@@ -1,0 +1,79 @@
+
+int*bfs_topsort(int v, vector<int> *adj)
+{
+    queue<int>q;
+    map<int,int>indegree;
+    for(int i=0;i<v;i++)
+       indegree[i]=0;
+    
+    for(int i=0;i<v;i++)
+    {
+        
+        for(auto x:adj[i])
+          indegree[x]++;
+    }
+    
+    for(int i=0;i<v;i++)
+       if(indegree[i]==0)
+          q.push(i);
+          
+    int*a = new int[v];
+    int i=0;
+          
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        a[i++]=node;
+        
+        for(auto x: adj[node])
+        {
+            indegree[x]--;
+            
+            if(indegree[x]==0)
+               q.push(x);
+        }
+    }
+    
+return a;    
+
+
+}
+
+void dfs_topsort(int root, vector<int>*adj,map<int,bool>&visited,list<int>&l)
+{
+    visited[root]=true;
+    
+    for(auto x:adj[root])
+    {
+        if(!visited[x])
+        {
+            dfs_topsort(x,adj,visited,l);
+        }
+    }
+    
+    l.push_front(root);
+}
+
+int* topoSort(int v, vector<int> adj[])
+{
+    map<int,bool>visited; list<int>l;
+    
+    for(int i=0;i<v;i++)
+    {
+        if(!visited[i])
+          dfs_topsort(i,adj,visited,l);
+    }
+    
+    int*a=new int[v]; int i=0;
+    
+    while(!l.empty())
+    {
+        a[i++]=l.front();
+        l.pop_front();
+    }
+    
+    return a;
+    
+    
+}
