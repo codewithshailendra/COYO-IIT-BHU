@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    string s; cin>>s; int k; cin>>k;
+	    
+	    int hash[26]; int n=s.length();
+	    fill(hash,hash+26,0); int maxi=INT_MIN;
+	    
+	    for(int i=0;i<n;i++)
+	     {
+	         hash[s[i]-'a']++;
+	         maxi=max(maxi,hash[s[i]-'a']);
+	     }
+	    priority_queue<int>q;
+	    
+	    for(int i=0;i<26;i++)
+	    {
+	        if(hash[i]!=0)
+	           q.push(hash[i]);
+	    }
+	    
+	    while(k-- && !q.empty())
+	    {
+	        int val=q.top();
+	        q.pop();
+	         val=val-1;
+	         if(val>0)
+	           q.push(val);
+	    }
+	    
+	    if(q.empty())
+	      cout<<0<<endl;
+	    else
+	    {
+	        int ans=0;
+	        while(!q.empty())
+	        {
+	            ans+=pow(q.top(),2);
+	            q.pop();
+	        }
+	        
+	        cout<<ans<<endl;
+	    }
+	    
+	 }
+	
+	
+	return 0;
+}
