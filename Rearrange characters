@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t; cin>>t; 
+	
+	while(t--)
+	{
+	    string s; cin>>s; int n=s.length();
+	    
+	    priority_queue< pair<int,char> >pq;
+	    int count[26]; fill(count,count+26,0);
+	    
+	    for(int i=0;i<n;i++)
+	    {
+	        count[s[i]-'a']++;
+	    }
+	    
+	    for(int i=0;i<26;i++)
+	    {
+	        if(count[i]!=0)
+	        {
+	            pq.push(make_pair(count[i],'a'+i));
+	        }
+	    }
+	    
+	    pair<int,char>prev=make_pair(-1,'#');
+	    string ans="";
+	    
+	     // while(!pq.empty())
+	      //    {cout<<pq.top().first<<pq.top().second<<endl; pq.pop();} 
+	    
+	    while(!pq.empty())
+	    {
+	         pair<int,char>p=pq.top();
+	         pq.pop();
+	         ans=ans+p.second;
+	         
+	         if(prev.first>0)
+	            pq.push(prev);
+	            
+	         p.first--;
+	         prev=p;
+	         
+	    }
+	    
+	   // cout<<ans<<endl;
+	    if(ans.length()!=n)
+	       cout<<0<<endl;
+	    else
+	       cout<<1<<endl;
+	    
+	    
+	    
+	}
+
+	
+	return 0;
+}
