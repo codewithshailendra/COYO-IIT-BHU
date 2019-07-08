@@ -1,0 +1,13 @@
+t=int(input())
+
+while (t):
+    n=int(input())
+    a= (n//10)*10;
+    b= (a+10);
+
+    if (n-a>b-n):
+        print(b)
+    else:
+        print(a)
+    t=t-1
+
