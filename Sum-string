@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string string_sum(string s1, string s2)
+{
+    if(s1.length()<s2.length())
+       swap(s1,s2);
+       
+    int n1=s1.length(),n2=s2.length();
+    
+    string ans="";
+        int carry=0;
+       for(int i=0;i<n2;i++)
+       {
+           int sum = ((s1[n1-1-i]-'0')+(s2[n2-i-1]-'0')+ carry);
+           int ds= sum%10;
+            carry=sum/10;
+           
+           ans = char(ds+'0')+ans;
+           
+       }
+       
+       for(int i=n2; i<n1;i++)
+       {
+           int sum= (s1[n1-1-i]-'0')+carry;
+           int ds=sum%10;
+           carry = sum/10;
+           
+           ans = char(ds+'0') +ans;
+       }
+       
+       if(carry!=0)
+       {
+            ans = char(carry+'0') + ans;
+       }
+    
+        return ans;
+    
+    
+}
+
+
+bool check(string s, int beg, int l1, int l2)
+{
+    string s1=s.substr(beg,l1);
+    string s2=s.substr(beg+l1,l2);
+    string s3 = string_sum(s1,s2);
+    
+    int l3=s3.length();
+    
+    if(l3>s.length()-l1-l2-beg)
+       return false;
+       
+       
+    if(s3==s.substr(beg+l1+l2,l3))
+    {
+        if(beg+l1+l2+l3==s.length())
+           return true;
+           
+        return check(s,beg+l1,l2,l3);   
+    }
+    
+   return false;
+}
+
+bool fun(string s)
+{
+    int n=s.length();
+    
+    for(int i=1;i<n;i++)
+    {
+        for(int j=1;i+j<n;j++)
+        {
+            if(check(s,0,i,j))
+               return true;
+        }
+    }
+    
+    return false;
+}
+
+
+
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    string s; cin>>s;
+	    
+	    if(fun(s))
+	      cout<<1<<endl;
+	    else
+	       cout<<0<<endl;
+	}
+
+		return 0;
+}
