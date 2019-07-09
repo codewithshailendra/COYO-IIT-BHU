@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    string s; cin>>s;
+	    int ans=0;
+	    int n=s.length();
+	    int i=0;
+	    while(i<n)
+	    {
+	        if(isalpha(s[i]))
+	        {
+	            i++;
+	            continue;
+	        }
+	        else
+	        {
+	            string numstr("");
+	            while(i<n && isdigit(s[i]))
+	            {
+	                numstr=numstr+s[i];
+	                i++;
+	                
+	            }
+	            
+	            ans+=atoi(numstr.c_str());
+	        }
+	    }
+	    
+	    cout<<ans<<endl;
+	    
+	}
+	
+	return 0;
+}
