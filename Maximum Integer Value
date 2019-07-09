@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+int fun(string s,int i,int ans,int n)
+{
+     if(i==n)
+     {
+         return ans;
+     }
+     
+     if(ans==0)
+        return fun(s,i+1,ans+(s[i]-'0'),n);
+     
+     if(s[i]=='0')
+       return fun(s,i+1,ans,n);
+       
+    return max(fun(s,i+1,ans*(s[i]-'0'),n),fun(s,i+1,ans+(s[i]-'0'),n));   
+}
+
+ll fundp(string s)
+{   
+    ll n=s.length();
+    ll dp[n]; fill(dp,dp+n,0);
+    dp[0]=s[0]-'0';
+    
+    for(ll i=1;i<n;i++)
+    {
+        if(s[i]=='0')
+          dp[i]=dp[i-1];
+        else  
+          dp[i]=max(dp[i-1]*(s[i]-'0'),dp[i-1]+(s[i]-'0'));
+    }
+    
+    return dp[n-1];
+}
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    string s; cin>>s; int n=s.length();
+	    cout<<fundp(s)<<endl;
+	}
+	
+	
+	return 0;
+}
