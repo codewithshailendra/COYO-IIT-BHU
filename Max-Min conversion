@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    string s; cin>>s; int n=s.length();
+	    string maxi="",mini="";
+	    
+	    for(int i=0;i<n;i++)
+	    {
+	        if(s[i]=='5')
+	          {maxi+='6'; mini+='5';}
+	        else if(s[i]=='6')
+	         {mini+='5'; maxi+='6';}
+	         else
+	           {
+	               mini+=s[i];
+	               maxi+=s[i];
+	           }
+	    }
+	    
+	    int ans=0;
+	    
+	   ans+= atoi(maxi.c_str())+atoi(mini.c_str());
+	    
+	    cout<<ans<<endl;
+	}
+	
+
+	return 0;
+}
