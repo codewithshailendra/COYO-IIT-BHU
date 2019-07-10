@@ -1,0 +1,58 @@
+/*
+// Sample code to perform I/O:
+
+cin >> name;                            // Reading input from STDIN
+cout << "Hi, " << name << ".\n";        // Writing output to STDOUT
+
+// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+*/
+
+// Write your code here
+
+#include<bits/stdc++.h>
+using namespace std;
+map<int,vector<int> >mp;
+map<int,bool>visited;
+
+
+void dfs(int root)
+{
+    visited[root]=true;
+    for(auto x:mp[root])
+    {
+        if(!visited[x])
+           dfs(x);
+    }
+    
+    return;
+}
+
+int main()
+{
+    int n,e; cin>>n>>e;
+    //map<int,vector<int> >mp;
+    
+    //int storage[n+1];
+    for(int i=1;i<=e;i++)
+    {
+        int a,b; cin>>a>>b;
+        mp[a].push_back(b);
+        mp[b].push_back(a);
+    }
+    
+    int countr=0;
+    
+    for(int i=1;i<=n;i++)
+    {
+        if(!visited[i])
+           {
+               dfs(i);
+               countr++;
+           }
+    }
+    
+    cout<<countr<<endl;
+    return 0;
+    
+    
+}
