@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fun(string s,int k)
+{
+    int n=s.length();
+   int ans_len= n-k;
+   int ans=INT_MIN;
+   
+   for(int i=0;i+ans_len-1<=n;i++)
+   {
+       string s1=s.substr(i,ans_len);
+       ans=max(ans,atoi(s1.c_str()));
+   }
+    
+    return ans;
+    
+    
+}
+
+
+
+int main() {
+	string s; int k; cin>>s>>k;
+//	int n=s.length();
+  cout<<fun(s,k)<<endl;
+	
+
+	
+	return 0;
+}
