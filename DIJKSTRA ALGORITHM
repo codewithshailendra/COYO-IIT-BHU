@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void dijkastra(map<int ,vector< pair<int,int> > >&mp, int src,int*distance)
+{
+      set< pair<int,int> >s;
+      
+     s.insert(make_pair(0,src));
+      
+      while(!s.empty())
+      {
+           pair<int,int> p = *(s.begin());
+           int node=p.second;
+           int node_distance=p.first;
+           s.erase(s.begin());
+           
+           for(auto x:mp[node])
+           {
+               
+                    if(distance[x.first]>(x.second+node_distance))
+                  {
+                      int destination = x.first;
+                      auto f=s.find(make_pair(distance[destination],destination));
+                      
+                      if(f!=s.end())
+                      {
+                          s.erase(f);
+                      }
+                      
+                      distance[destination]=x.second+node_distance;
+                      s.insert(make_pair(distance[destination],destination));
+                      
+                      
+                  }
+                 
+               
+               
+              
+           }
+      }
+      
+      
+    return;  
+      
+}
+
+
+
+
+int main() {
+    
+    int t; cin>>t;
+    
+    while(t--)
+    {
+        int v,e; cin>>v>>e;
+        map<int ,vector< pair<int,int> > >mp;
+        
+        
+        
+        for(int i=1;i<=e;i++)
+        {
+            int a,b,c; cin>>a>>b>>c;
+            
+            mp[a].push_back(make_pair(b,c));
+            mp[b].push_back(make_pair(a,c));
+        }
+        
+        int source; cin>>source;
+        
+        int distance[v+1];
+        
+        for(int i=0;i<=v;i++)
+            distance[i]=INT_MAX;
+            
+        distance[source]=0;
+        
+        dijkastra(mp,source,distance);
+        
+        for(int i=1;i<=v;i++)
+        {
+            if(i==source)
+              continue;
+            else if(distance[i]==INT_MAX)
+                 cout<<-1<<" ";
+            else
+               cout<<distance[i]<<" ";   
+            
+            
+        }
+        
+        cout<<endl;
+    }
+    
+    
+	return 0;
+}
