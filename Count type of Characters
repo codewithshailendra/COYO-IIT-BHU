@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    string s; cin>>s;
+	    int n=s.length();
+	    
+	    int uc=0,lc=0,num=0,sc=0;
+	    for(int i=0;i<n;i++)
+	    {
+	        if(isdigit(s[i]))
+	           num++;
+	        else if(isupper(s[i]))
+	           uc++;
+	        else if(islower(s[i]))
+	            lc++;
+	       else
+	           sc++;
+	    }
+	    
+	    
+	    cout<<uc<<endl;
+	    cout<<lc<<endl;
+	    cout<<num<<endl;
+	    cout<<sc<<endl;
+	    
+	}
+	
+	return 0;
+}
