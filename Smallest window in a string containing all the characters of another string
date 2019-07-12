@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; cin>>t;
+	while(t--)
+	{
+	    string str,patrn; cin>>str>>patrn;
+	    int n1=str.length(),n2=patrn.length();
+	    
+	    if(n1<n2)
+	      {cout<<-1<<endl; continue;}
+	    
+	    int hash2[256]; fill(hash2,hash2+256,0);
+	    int hash1[256]; fill(hash1,hash1+256,0);
+	    
+	    for(int i=0;i<n2;i++)
+	       hash2[patrn[i]]++;
+	       
+	   int start=0, start_index=-1, min_length=INT_MAX;
+	   int countr=0;
+	   
+	   for(int j=0;j<n1;j++)
+	   {
+	       hash1[str[j]]++;
+	       
+	       if(hash2[str[j]]!=0 && hash2[str[j]]>=hash1[str[j]])
+	             countr++;
+	             
+	       if(n2==countr)
+	       {
+	            while(hash1[str[start]]>hash2[str[start]] || hash2[str[start]]==0)
+	            {
+	                if(hash1[str[start]]>hash2[str[start]])
+	                       hash1[str[start]]--;
+	                       
+                   start++;    
+	            }
+	            
+	             int len_window=j-start+1;
+	             
+	                  if(min_length>len_window)
+	                 {
+                         	           min_length=len_window;
+	                                   start_index=start;
+	                 }
+	       
+	       
+	      }
+	       
+	   }
+	   
+	   if(start_index==-1)
+	      {cout<<-1<<endl; continue;}
+	      
+	    cout<<str.substr(start_index,min_length)<<endl;  
+	   
+	        
+	}   
+
+	
+	return 0;
+}
