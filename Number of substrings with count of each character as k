@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool check(int*freq,int k)
+{
+    for(int i=0;i<26;i++)
+       if(freq[i] && freq[i]!=k)
+            return false;
+            
+    return true;        
+}
+
+int main() {
+    string s; int k; cin>>s>>k;
+    
+    int cnt[26]={0};
+    int res=0; int n=s.length();
+    
+    for(int i=0;i<n;i++)
+    {
+        fill(cnt,cnt+26,0);
+        //int dist_cnt=0;
+        for(int j=i;j<n;j++)
+        {
+            cnt[s[j]-'a']++;
+            
+            if(cnt[s[j]-'a']>k)
+               break;
+               
+            else if(cnt[s[j]-'a']==k && check(cnt,k))
+              {
+                  res++;
+              }
+             
+               
+        }
+    }
+    
+    cout<<res<<endl;
+    
+    
+    
+    
+    
+	return 0;
+}
