@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    string s; int k; cin>>s>>k; int i=0,n=s.length();
+	    
+	    string main_string("");
+	    
+	    while(i<n)
+	    { string local_string="";
+	       while(i<n && isalpha(s[i]))
+	       {
+	           local_string+=s[i];
+	           i++;
+	       }
+	       
+	       string num="";
+	       
+	       while(i<n && isdigit(s[i]))
+	       {
+	           num+=s[i];
+	           i++;
+	       }
+	       
+	       int freq=atoi(num.c_str());
+	       
+	       for(int p=1;p<=freq;p++)
+	         main_string+=local_string;
+	       
+	    }
+	    
+	    cout<<main_string[k-1]<<endl;
+	}
+	
+
+	return 0;
+}
