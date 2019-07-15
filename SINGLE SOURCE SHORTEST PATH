@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int v,e; cin>>v>>e;
+	    
+	    map<int, vector< pair<int,int> > >mp;
+	    
+	    for(int i=1;i<=e;i++)
+	    {
+	        int a,b,c; cin>>a>>b>>c;
+	        mp[a].push_back(make_pair(b,c));
+	        mp[b].push_back(make_pair(a,c));
+	        
+	    }
+	    
+	    int src; cin>>src;
+	    
+	    map<int,int>distance;
+	    for(int i=1;i<=v;i++)
+	        distance[i]=INT_MAX;
+	        
+	    distance[src]=0;
+	    
+	    set<pair<int,int> >s; s.insert(make_pair(0,src));
+	    
+	    while(!s.empty())
+	    {
+	        pair<int,int>p=*s.begin();
+	        int node=p.second;
+	        int node_distance=p.first;
+	        s.erase(s.begin());
+	        
+	        for(auto x:mp[node])
+	        {
+	                if(distance[x.first]>node_distance+x.second)
+	                {
+	                    int dest=x.first;
+	                    
+	                     auto f=s.find(make_pair(distance[dest],dest));
+	                     
+	                     if(f!=s.end())
+	                        s.erase();
+	                        
+	                    distance[dest]=node_distance+x.second;
+	                    s.insert(make_pair(distance[dest],dest));
+	                }
+	        }
+	        
+	   
+	    }
+	    
+	    
+	    for(int i=1;i<=v;i++)
+	    {
+	        
+	        if(i==src)
+	            continue;
+	        else if(distance[i]==INT_MAX)
+	           cout<<-1<<" ";
+	         else
+	           cout<<distance[i]<<" ";
+	            
+	    }
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	        
+	}
+	
+	
+	return 0;
+}
