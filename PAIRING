@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void  dfs(int root,map<int,vector<int> >mp,map<int,bool>&visited, int*countr)
+{
+    visited[root]=true;
+    (*countr)++;
+    
+    for(auto x:mp[root])
+        if(!visited[x])
+          {dfs(x,mp,visited,countr); }
+          
+    return;      
+}
+
+int main()
+{
+    int v,e; cin>>v>>e;
+    
+    if(e==0)
+      { cout<<(v*(v-1))/2<<endl; return 0;}
+    
+    map<int,vector<int> >mp;
+    
+    for(int i=1;i<=e;i++)
+    {
+        int a,b; cin>>a>>b;
+        mp[a].push_back(b);
+        mp[b].push_back(a);
+    }
+    
+    map<int,bool>visited;
+    
+    vector<int>forest;
+    int a=0;
+    int*countr =&a;
+    
+    for(int i=0;i<v;i++)
+      {
+          if(!visited[i])
+       {
+           dfs(i,mp,visited,countr);
+           forest.push_back(a);
+            a=0;
+           
+       }
+       
+      }
+      
+       
+       int ans=0;
+       
+       for(auto x:forest)
+          ans+= x*(v-x);
+          
+          cout<<ans/2<<endl;
+    
+    
+    return 0;
+    
+}
