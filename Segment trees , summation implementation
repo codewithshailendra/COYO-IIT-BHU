@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void build_tree(int*a,int s,int e, int*tree,int index)
+{
+    if(s==e)
+    {
+        tree[index]=a[s];
+        return;
+    }
+    
+    int mid=(s+e)/2;
+    build_tree(a,s,mid,tree,2*index);
+    build_tree(a,mid+1,e,tree,2*index+1);
+    
+    tree[index]=tree[2*index]+tree[2*index+1];
+    return;
+}
+
+int query(int*tree,int ts,int te,int qs,int qe,int index)
+{
+    if(ts>=qs && te<=qe)
+        return tree[index];
+        
+    if(ts>qe || te<qs)
+        return 0;
+        
+    int mid=(ts+te)/2;
+    
+    int left_sum = query(tree,ts,mid,qs,qe,2*index);
+    int right_sum = query(tree,mid+1,te,qs,qe,2*index+1);
+    
+    return left_sum+right_sum;
+}
+
+void update(int*tree,int ts,int te, int i,int increment, int index)
+{
+    if(ts==te)
+      { tree[index]+=increment;
+        return;}
+      
+    if(ts>i || te<i)
+       return ;
+       
+    int mid=(ts+te)/2;
+    update(tree,ts,mid,i,increment,2*index);
+    update(tree,mid+1,te,i,increment,2*index+1);
+    
+    tree[index]=tree[2*index]+tree[2*index+1];
+    return;
+}
+
+void update_range(int*tree,int ts,int te,int l,int r,int increment,int index)
+{
+    if(ts>r || l>te )
+        return;
+        
+    if(ts==te)
+     {
+         tree[index]+=increment;
+         return;
+     }
+     
+     int mid=(ts+te)/2;
+     update_range(tree,ts,mid,l,r,increment,2*index);
+     update_range(tree,mid+1,te,l,r,increment,2*index+1);
+     
+     tree[index]=tree[2*index]+tree[2*index+1];
+
+    return;
+     
+     
+}
+
+
+int main() {
+
+int a[]={1,-5,4,2,-1,9,10};
+int n= (sizeof(a)/sizeof(int));
+
+int tree[4*n+1];
+
+build_tree(a,0,n-1,tree,1);
+update(tree,0,n-1,1,5,1);
+cout<<query(tree,0,n-1,1,2,1)<<endl;
+
+
+	return 0;
+}
