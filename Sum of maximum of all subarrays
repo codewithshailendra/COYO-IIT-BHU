@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void build_tree(int*a,int s,int e,pair<int,int>*tree,int index)
+{
+    if(s>e)
+      return;
+
+    if(s==e)
+     {
+         tree[index]=make_pair(a[s],s);
+         return;
+     }
+
+     int mid=(s+e)/2;
+
+     build_tree(a,s,mid,tree,2*index);
+     build_tree(a,mid+1,e,tree,2*index+1);
+
+     tree[index]=max(tree[2*index],tree[2*index+1]);
+     return;
+}
+
+pair<int,int> query(pair<int,int>*tree,int ts,int te,int qs,int qe,int index)
+{
+    if(ts>=qs && te<=qe)
+        return tree[index];
+
+    if(qs>te || ts>qe)
+       return make_pair(INT_MIN,-1);
+
+    int mid=(ts+te)/2;
+
+    pair<int,int> left_max=query(tree,ts,mid,qs,qe,2*index);
+    pair<int,int> right_max=query(tree,mid+1,te,qs,qe,2*index+1);
+
+    return max(left_max,right_max);
+
+}
+
+int fun(pair<int,int>*tree,int n,int l,int r)
+{
+    if(l>r)
+      return 0;
+
+    pair<int,int>g=query(tree,0,n-1,l,r,1);
+
+    return g.first*(r-g.second+1)*(g.second-l+1)+fun(tree,n,l,g.second-1)+fun(tree,n,g.second+1,r);
+}
+
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+
+    int a[]={1,3,1,7};
+    int n=(sizeof(a)/sizeof(a[0]));
+
+    pair<int,int> tree[4*n+1];
+
+    build_tree(a,0,n-1,tree,1);
+
+    cout<<fun(tree,n,0,n-1)<<endl;
+
+
+
+
+
+
+    return 0;
+}
