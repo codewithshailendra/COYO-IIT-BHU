@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int nCr(int n, int k) 
+{ 
+    int C[k+1]; 
+    memset(C, 0, sizeof(C)); 
+  
+    C[0] = 1;  // nC0 is 1 
+  
+    for (int i = 1; i <= n; i++) 
+    { 
+        // Compute next row of pascal triangle using 
+        // the previous row 
+        for (int j = min(i, k); j > 0; j--) 
+            C[j] = C[j] + C[j-1]; 
+    } 
+    return C[k]; 
+} 
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int n; string s; cin>>n>>s;
+	    
+	    int hash[26]={0};
+	    
+	    for(int i=0;i<n;i++)
+	      hash[s[i]-'a']++;
+	      
+	      int ans=n;
+	      
+	    for(int i=0;i<26;i++)
+	    {
+	        if(hash[i]>1)
+	        ans+=nCr(hash[i],2);
+	    }
+	    
+	  cout<<ans<<endl;
+	    
+	}
+	
+
+	
+	return 0;
+}
