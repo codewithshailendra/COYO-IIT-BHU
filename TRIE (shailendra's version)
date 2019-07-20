@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define hashmap unordered_map<char,node*>
+
+
+struct node
+{
+    char ch;
+    hashmap h;
+    bool terminal;
+};
+
+
+struct node* construct_node(char ch)
+{
+    struct node*new_node = new node[1];
+    new_node->ch=ch;
+    new_node->terminal=false;
+    return new_node;
+}
+
+void addword(string s, struct node*root)
+{
+    int n=s.length();
+
+    struct node*temp=root;
+
+    for(int i=0;i<n;i++)
+    {
+        if(temp->h.count(s[i])==0)
+        {
+            node*newnode = construct_node(s[i]);
+            temp->h[s[i]] = newnode;
+            temp=newnode;
+        }
+        else
+        {
+            temp=temp->h[s[i]];
+        }
+    }
+
+    temp->terminal=true;
+
+    return;
+}
+
+bool lookup(struct node*root, string s)
+{
+    int n=s.length();
+
+    struct node*temp=root;
+
+    for(int i=0;i<n;i++)
+    {
+        if(temp->h.count(s[i]))
+           temp=temp->h[s[i]];
+        else
+           return false;
+    }
+
+    return temp->terminal;
+}
+
+
+int main()
+{
+    struct node* root=construct_node('\0');
+
+    addword("shailendra",root);
+    addword("shailen",root);
+    addword("shailini",root);
+    addword("Mahendra",root);
+    addword("Dravid",root);
+    addword("Hritik",root);
+
+    cout<<lookup(root,"roshan")<<endl;
+    cout<<lookup(root,"shailendra")<<endl;
+    cout<<lookup(root,"shailendr")<<endl;
+    cout<<lookup(root,"shailini")<<endl;
+    cout<<lookup(root,"shail")<<endl;
+    cout<<lookup(root,"Dravid")<<endl;
+     cout<<lookup(root,"Mahendra")<<endl;
+    
+
+
+
+
+
+
+
+
+
+
+    return 0;
+
+}
