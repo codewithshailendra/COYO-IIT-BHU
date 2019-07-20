@@ -1,0 +1,123 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+// In segment trees alays remember that base case is of no overlapping condition. 
+
+void build_tree(int*a,int s,int e,int*tree,int index)
+{    // base case
+    if(s>e)
+      return;
+    
+    // if we arrive at tree node
+    if(s==e)
+    {
+        tree[index]=a[s];
+        return;
+    }
+    // partial overlapping , go to both the sides.
+    int mid=(s+e)/2;
+    build_tree(a,s,mid,tree,2*index);
+    build_tree(a,mid+1,e,tree,2*index+1);
+    tree[index]=min(tree[2*index],tree[2*index+1]);
+    return;
+}
+
+int query(int*tree,int ts,int te,int qs,int qe,int index)
+{
+         
+    if(qe<ts || qs>te)
+       return INT_MAX;
+       
+    
+    
+    if(ts>=qs && qe>=te)
+      return tree[index];
+ 
+    int mid=(ts+te)/2;
+    int left_min=query(tree,ts,mid,qs,qe,2*index);
+    int right_min = query(tree,mid+1,te,qs,qe,2*index+1);
+    
+    return min(left_min,right_min);
+}
+
+void update(int*tree,int ts,int te,int i,int increment,int index)
+{
+     if(i<ts || i>te)
+      return;
+      
+    
+    
+    if(ts==te)
+    {
+        tree[index]+=increment;
+        return;
+    }
+    
+   
+    int mid=(ts+te)/2;
+    
+    update(tree,ts,mid,i,increment,2*index);
+    update(tree,mid+1,te,i,increment,2*index+1);
+    
+    tree[index]=min(tree[2*index],tree[2*index+1]);
+    
+    return;
+  
+}
+
+void update_range(int*tree,int ts,int te,int qs,int qe,int increment,int index)
+{
+    
+      if(qe<ts || qs>te)
+           return;
+    
+    
+    
+    if(ts==te)
+    {
+        tree[index]+=increment;
+        return;
+    }
+    
+  
+      
+    int mid=(ts+te)/2;
+    update_range(tree,ts,mid,qs,qe,increment,2*index);
+    update_range(tree,mid+1,te,qs,qe,increment,2*index+1);
+    tree[index]=min(tree[2*index],tree[2*index+1]);
+    
+    return;
+}
+
+
+
+
+
+
+
+
+
+int main()
+{
+    
+    int a[]={-3,-2,3,4,5};
+    int n=(sizeof(a)/sizeof(a[0]));
+    
+    int tree[4*n+1]={INT_MAX};
+    
+    build_tree(a,0,n-1,tree,1);
+    update(tree,0,n-1,0,5,1);
+    update_range(tree,0,n-1,1,2,5,1);
+    
+   /* for(int i=0;i<=4*n;i++)
+        if(tree[i]!=INT_MAX)
+            cout<<tree[i]<<" ";
+            
+            cout<<endl;*/
+    
+    cout<<query(tree,0,n-1,0,4,1)<<endl;
+    
+    
+ 
+    return 0;
+}
