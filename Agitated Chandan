@@ -1,0 +1,100 @@
+/*
+// Sample code to perform I/O:
+
+cin >> name;                            // Reading input from STDIN
+cout << "Hi, " << name << ".\n";        // Writing output to STDOUT
+
+// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+*/
+
+// Write your code here
+
+#include<bits/stdc++.h>
+using namespace std;
+
+map<int, vector< pair<int,int> > >mp;
+
+pair<int,int> bfs(int root,int n)
+{
+    map<int,bool>visited; //visited[root]=true;
+    for(int i=1;i<=n;i++)
+      visited[i]=false;
+      
+      visited[root]=true;
+    
+    queue<int>q; q.push(root);
+    map<int,int>distance;
+    
+    for(int i=1;i<=n;i++)
+        distance[i]=0;
+    
+    int maxi=INT_MIN,maxi_node=root; distance[root]=0;
+    
+    
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        
+        for(auto x:mp[node])
+        {
+            if(!visited[x.first])
+            {
+                visited[x.first]=true;
+                distance[x.first]=distance[node]+x.second;
+                if(distance[x.first]>maxi)
+                {
+                    maxi=distance[x.first];
+                    maxi_node=x.first;
+                }
+                q.push(x.first);
+            }
+        }
+    }
+    
+    return make_pair(maxi_node,maxi);
+    
+}
+
+
+int main()
+{
+      int t; cin>>t;
+      
+      while(t--)
+      {
+          int n; cin>>n;
+          
+          for(int i=1;i<n;i++)
+          {
+              int a,b,c; cin>>a>>b>>c;
+              
+              mp[a].push_back(make_pair(b,c));
+              mp[b].push_back(make_pair(a,c));
+          }
+          
+          pair<int,int>p=bfs(1,n);
+          
+        
+          
+          pair<int,int>ans=bfs(p.first,n);
+          
+          int max_distance=ans.second;
+          int cost=0;
+          
+          if(max_distance>10000)
+             cost=10000;
+          else if(max_distance>1000)
+             cost=1000;
+          else if(max_distance>100)
+             cost=100;
+           else
+             cost=0;
+             
+             cout<<cost<<" "<<max_distance<<endl;
+             
+             mp.clear();
+          
+          
+      }
+}
