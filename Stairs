@@ -1,0 +1,20 @@
+int Solution::climbStairs(int A) {
+    int n=A;
+    int dp[n+1];  fill(dp,dp+n+1,0);
+    
+    dp[0]=0;
+    dp[1]=1;
+    dp[2]=2;
+    dp[3]=3;
+    
+    
+    for(int i=4;i<=n;i++)
+    {
+        dp[i]= dp[i-2]+dp[i-1];
+    }
+    
+    
+    return dp[n];
+    
+    
+}
