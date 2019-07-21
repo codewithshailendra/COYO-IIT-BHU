@@ -1,0 +1,27 @@
+int height(Node*node)
+{
+    if(node==NULL)
+      return 0;
+      
+    return 1+max(height(node->left),height(node->right));  
+}
+
+
+
+
+int diameter(Node* node)
+{
+     //pair<Node*,int>p=bfs(node);
+     //pair<Node*,int>ans=bfs(p.first);
+     
+     //return ans.second;
+     
+     if(node==NULL)
+       return 0;
+     
+     int a= height(node->left)+height(node->right);
+     int b= diameter(node->left);
+     int c= diameter(node->right);
+     
+     return max(a,max(b,c))+1;
+}
