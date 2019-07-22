@@ -1,0 +1,86 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+# define hashmap unordered_map<char,node*>
+
+int countr=0;
+
+struct node{
+    
+    char ch;
+    hashmap h;
+    bool terminal;
+    
+    
+};
+
+struct node* construct_node(char c)
+{
+    struct node* new_node= new node[1];
+    new_node->ch=c;
+    new_node->terminal=false;
+    countr++;
+    return new_node;
+}
+
+void addword(string s,struct node*root)
+{
+    int n=s.length();
+    struct node*temp=root;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(temp->h.count(s[i])==0)
+         {
+             struct node*new_node = construct_node(s[i]);
+             
+             temp->h[s[i]]=new_node;
+             temp=new_node;
+         }
+         else
+            temp=temp->h[s[i]];
+         
+    }
+    
+    temp->terminal=true;
+    return;
+}
+
+bool lookup(string s,node*root)
+{
+    struct node* temp=root; int n=s.length();
+    
+     for(int i=0;i<n;i++)
+     {
+         if(temp->h.count(s[i])==0)
+              return false;
+         else
+            temp=temp->h[s[i]];
+     }
+     
+     return temp->terminal;
+     
+}
+
+
+
+int main() {
+	struct node*root=construct_node('\0');
+	
+/*	addword("shailendra",root);
+	addword("shail",root);
+	cout<<lookup("shailendra",root)<<endl;*/
+	
+	string s; cin>>s;
+	
+	int n=s.length(); 
+	
+	for(int i=0;i<n;i++)
+	 addword(s.substr(i,n-i),root);
+	 
+	cout<<countr<<endl; 
+	
+	
+	
+	return 0;
+}
