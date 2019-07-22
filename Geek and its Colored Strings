@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+
+ll fun(ll n,ll r,int g,ll b)
+{
+    ll fact[n+1];
+    fact[0]=1;
+    
+    for(ll i=1;i<=n;i++)
+       fact[i]=fact[i-1]*i;
+       
+    ll left=n-(r+g+b);   ll ans=0;
+    
+    for(ll i=0;i<=left;i++)
+    {
+        for(ll j=0;j<=left-i;j++)
+        {
+            ll k=left-(i+j);
+            
+            ans+= fact[n]/(fact[i+r]*fact[j+g]*fact[k+b]);
+        }
+    }
+    
+    return ans;
+}
+
+
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    ll n,r,g,b; cin>>n>>r>>g>>b;
+	    cout<<fun(n,r,g,b)<<endl;
+	}
+	
+return 0;
+}
