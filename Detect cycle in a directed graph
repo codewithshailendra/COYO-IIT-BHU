@@ -1,0 +1,38 @@
+
+bool helper(int node, map<int,bool>&visited, map<int,bool>&instack,vector<int> adj[])
+{
+    visited[node]=true;
+    instack[node]=true;
+    
+    for(auto x:adj[node])
+    {
+        if((!visited[x] && helper(x,visited,instack,adj))|| instack[x])
+            return true;
+    }
+    
+    instack[node]=false;
+    return false;
+    
+}
+
+
+
+
+bool isCyclic(int v, vector<int> adj[])
+{
+   map<int,bool>visited; map<int,bool>instack;
+   bool ans=false;
+   
+   for(int i=0;i<v;i++)
+   {
+       if(adj[i].size()==0)
+          continue;
+       else if(!visited[i])
+         ans=(ans||helper(i,visited,instack,adj));
+         
+       if(ans)
+         return ans;
+   }
+   
+    return false;
+}
