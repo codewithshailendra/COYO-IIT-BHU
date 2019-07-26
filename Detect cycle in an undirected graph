@@ -1,0 +1,52 @@
+
+bool bfs(int src,vector<int> adj[], map<int,bool>&visited)
+{
+    queue<int>q; q.push(src); visited[src]=true;
+    map<int,int>parent; parent[src]=-1;
+    
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        
+        for(auto x:adj[node])
+        {
+            if(visited[x] && parent[node]!=x)
+              return true;
+              
+            if(!visited[x])
+             {
+                 visited[x]=true;
+                 q.push(x);
+                 parent[x]=node;
+             }
+        }
+    }
+    
+    return false;
+    
+    
+}
+
+
+
+bool isCyclic(vector<int> adj[], int V)
+{
+   map<int,bool>visited;
+   
+    bool ans=false;
+    
+    for(int i=0;i<V;i++)
+    {
+        if(adj[i].size()==0)
+           continue;
+        else if(!visited[i])
+         ans=ans|| bfs(i,adj,visited);
+         
+        if(ans)
+          return ans;
+    }
+    
+    return false;
+   
+}
