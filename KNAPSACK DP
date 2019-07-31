@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fun_dp(int*val,int*weight,int n,int maxw)
+{
+     int dp[n+1][maxw+1];  
+     
+     for(int i=0;i<=n;i++)
+     {
+         for(int j=0;j<=maxw;j++)
+         {
+             if(i==0 || j==0)
+               dp[i][j]=0;
+            else if(weight[i-1]<=j)
+             dp[i][j]=max(val[i-1]+dp[i-1][j-weight[i-1]],dp[i-1][j]);
+             else
+              dp[i][j]=dp[i-1][j];
+         }
+     }
+     
+     return dp[n][maxw];
+     
+}
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int n,maxw; cin>>n>>maxw;
+	    int val[n],weit[n];
+	    
+	    for(int i=0;i<n;i++)
+	        cin>>val[i];
+	        
+	    for(int j=0;j<n;j++)
+	         cin>>weit[j];
+	         
+	   cout<<fun_dp(val,weit,n,maxw)<<endl;      
+	    
+	    
+	}
+	
+	
+	return 0;
+}
