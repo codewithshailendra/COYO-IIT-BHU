@@ -1,0 +1,26 @@
+int Solution::canJump(vector<int> &a) {
+    
+    int n=a.size();
+    
+    if(n==1)
+      return 1;
+      
+    if(a[0]==0)
+       return 0;
+    
+    bool dp[n];  memset(dp,false,sizeof(dp)); dp[0]=true;
+    
+    for(int i=0;i<n && dp[i];i++)
+    {
+        for(int j=i+1;j<n && j<=i+a[i];j++)
+            {
+                dp[j]=true;
+                if(dp[n-1])
+                   return 1;
+            }
+    }
+    
+    return dp[n-1];
+    
+    
+}
