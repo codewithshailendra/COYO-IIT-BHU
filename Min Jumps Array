@@ -1,0 +1,55 @@
+int Solution::jump(vector<int> &a) {
+    
+    /*int n=a.size();
+    int dp[n]; fill(dp,dp+n,INT_MAX-11); dp[0]=0;
+    bool dpt[n]; memset(dpt,false,sizeof(dpt)); dpt[0]=true;
+    
+    for(int i=0;i<n && dpt[i];i++)
+    {
+        for(int j=i+1;j<n && j-i<=a[i];j++)
+             {dp[j]=min(dp[j],1+dp[i]);
+                dpt[j]=true;
+             }
+    }
+    
+    if(dp[n-1]==INT_MAX-11)
+      return -1;
+      
+    return dp[n-1];  */
+    
+    if(a.size()==0)
+       return -1;
+       
+    if(a.size()==1)
+       return 0;
+       
+    if(a[0]==0)
+       return -1;
+       
+    int start=0,end=0,steps=0,n=a.size();
+    
+    while(end<n-1)
+    {
+        steps++;
+        
+        int max_end=end+1;
+        
+        for(int i=start;i<=end;i++)
+        {
+            if(i+a[i]>=n-1)
+              return steps;
+              
+            max_end=max(max_end,i+a[i]);  
+        }
+        
+        start=end+1;
+        end=max_end;
+        
+        
+        
+    }
+    
+    return steps;
+    
+  
+}
