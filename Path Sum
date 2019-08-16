@@ -1,0 +1,34 @@
+int Solution::hasPathSum(TreeNode* root, int b) {
+    
+    if(root==NULL)
+      return 0;
+      
+    queue<pair<TreeNode*,int> >q;
+   
+    
+    q.push(make_pair(root,root->val));
+
+
+     while(!q.empty())
+     {
+         TreeNode*node=q.front().first;
+         int sum=q.front().second;
+         q.pop();
+         
+         if(sum==b && node->left==NULL && node->right==NULL)
+           return 1;
+           
+           
+         
+         if(node->left!=NULL)
+             q.push(make_pair(node->left,sum+node->left->val));
+             
+           if(node->right!=NULL)
+             q.push(make_pair(node->right,sum+node->right->val));     
+             
+    
+     }
+    
+    return 0;
+    
+}
