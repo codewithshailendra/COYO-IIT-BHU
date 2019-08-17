@@ -1,0 +1,31 @@
+
+int ssum(TreeNode*root, int curr)
+{
+    if(root==NULL)
+       return curr%1003;
+       
+    curr = (curr*10+root->val)%1003;
+    
+    if(root->left==NULL && root->right==NULL)
+       return curr;
+       
+    if(root->left==NULL)
+      return ssum(root->right,curr)%1003;
+      
+    if(root->right==NULL)
+      return ssum(root->left,curr)%1003;
+      
+    return (ssum(root->left,curr)+ssum(root->right,curr))%1003;  
+       
+}
+ 
+ 
+int Solution::sumNumbers(TreeNode* root) {
+    
+    if(root==NULL)
+       return 0;
+       
+   return ssum(root,0)%1003;
+    
+    
+}
