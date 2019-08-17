@@ -1,0 +1,58 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ 
+ 
+ bool find(TreeNode*root, int a)
+ {
+     if(root==NULL)
+       return false;
+       
+    if(root->val==a)
+       return true;
+       
+    return find(root->left,a)||find(root->right,a);   
+ }
+ 
+ TreeNode*LCA(TreeNode*root,int b,int c)
+ {
+     if(!root)
+       return NULL;
+    
+    if(root->val==b || root->val==c)
+       return root;
+       
+    TreeNode*L=LCA(root->left,b,c);
+    TreeNode*R=LCA(root->right,b,c);
+    
+    if(L && R) 
+    return root;
+    
+    if(L)
+     return L;
+     
+    return R; 
+       
+ }
+ 
+ int Solution::lca(TreeNode* root, int b, int c) {
+    
+    if(!find(root,b) || !find(root,c))
+       return -1;
+       
+    TreeNode*ans=LCA(root,b,c);
+    
+    if(!ans)
+      return -1;
+      
+    return ans->val;  
+    
+   
+    
+}
