@@ -1,0 +1,25 @@
+
+pair<int,int> fast_diameter(Node*root)
+{
+     pair<int,int>p;
+   
+   if(root==NULL)
+   {
+       p.first=p.second=0;
+       return p;
+   }
+   
+   pair<int,int>l=fast_diameter(root->left);
+   pair<int,int>r=fast_diameter(root->right);
+   
+   p.second=1+max(l.second,r.second);
+   
+   p.first=max(l.first,max(r.first,l.second+r.second+1));
+   
+   
+   return p;    
+    
+    
+    
+    
+}
