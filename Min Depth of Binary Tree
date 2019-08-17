@@ -1,0 +1,17 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int Solution::minDepth(TreeNode* root) {
+    
+    if(root==NULL)
+       return 0;
+       
+    return min(1+minDepth(root->left),1+minDepth(root->right));   
+    
+}
