@@ -1,0 +1,34 @@
+
+int sum_replace(Node*root)
+{
+    if(root==NULL)
+      return 0;
+      
+    if(root->left==NULL && root->right==NULL)
+      {  int temp=root->data; root->data=0; return temp;}
+    
+    
+    
+    int left_sum=sum_replace(root->left);
+    int right_sum=sum_replace(root->right);
+    
+    int temp=root->data;
+    
+    root->data=left_sum+right_sum;
+    
+    return temp+root->data;
+    
+    
+    
+}
+
+
+
+void toSumTree(Node *node)
+{
+    if(node==NULL)
+     return;
+     
+    int a=sum_replace(node);
+    return;
+}
