@@ -1,0 +1,18 @@
+
+
+bool fun(Node*root, int mini=INT_MIN,int maxi=INT_MAX) {
+    
+    if(root==NULL)
+       return true;
+       
+    if(root->data>mini && root->data<maxi && fun(root->left,mini,root->data) && fun(root->right,root->data,maxi))
+        return true;
+        
+    return false;    
+    
+}
+
+bool isBST(Node*root)
+{
+    return fun(root);
+}
