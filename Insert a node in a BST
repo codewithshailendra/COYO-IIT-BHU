@@ -1,0 +1,37 @@
+Node* create_node(int x)
+{
+   struct Node*root= (struct Node*)malloc(sizeof(struct Node*));
+    root->left=NULL;
+    root->right=NULL;
+    root->data=x;
+    return root;
+}
+  
+  
+  
+
+  
+  
+Node* insert(Node* node, int data)
+{
+   if(node==NULL)
+     return create_node(data);
+     
+    if(node->data==data)
+      return node;
+     
+    if(node->data>data)
+      {
+          node->left=insert(node->left,data);
+      }
+      else if(node->data<data)
+        node->right=insert(node->right,data);
+      
+        
+      
+    
+    return node;
+    
+    
+    
+}
