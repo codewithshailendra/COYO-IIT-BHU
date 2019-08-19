@@ -1,0 +1,44 @@
+
+pair<bool,int>balance(Node*root)
+{
+    if(root==NULL)
+     return make_pair(true,0);
+     
+    pair<bool,int>p,pleft=balance(root->left),pright=balance(root->right);
+    
+    p.first= (pleft.first && pright.first && abs(pleft.second-pright.second)<=1);
+    p.second=1+max(pleft.second,pright.second);
+    
+    return p;
+}
+
+
+
+
+
+
+bool isBalanced(Node *root)
+{
+    
+    if(root==NULL)
+     return true;
+     
+     return balance(root).first;
+    /*bool x=isBalanced(root->right);
+    bool y=isBalanced(root->left);
+    bool z=abs(height(root->left)-height(root->right))<=1;
+    
+    return (x && y && z);*/
+    
+    
+    
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+}
