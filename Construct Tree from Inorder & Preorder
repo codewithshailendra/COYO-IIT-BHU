@@ -1,0 +1,29 @@
+Node* buildTree(int in[],int pre[], int x, int y)
+{
+     
+     static int index=0;
+     
+     if(x>y)
+      return NULL;
+     
+    Node* root = new Node[1];
+     root->left=NULL;
+     root->right=NULL;
+     root->data=pre[index];
+
+   
+   int val=pre[index];
+   
+   index++;
+   
+   int i=0;
+   for( i=x;i<=y;i++)
+      if(in[i]==val)
+         break;
+         
+    root->left=buildTree(in,pre,x,i-1);
+    root->right=buildTree(in,pre,i+1,y);
+    return root;
+   
+
+}
