@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+struct node{
+    
+    int data;
+    struct node*left;
+    struct node*right;
+    
+};
+
+struct node*create_node(int x)
+{
+    struct node*new_node=(struct node*)malloc(sizeof(struct node));
+    
+    new_node->data=x;
+    new_node->left=NULL;
+    new_node->right=NULL;
+    
+    return new_node;
+}
+
+node* make_btree(int*a,int s,int e)
+{
+    if(s>e)
+     return NULL;
+    
+    int mid=(s+e)/2;
+    node*new_node=create_node(a[mid]);
+    new_node->left=make_btree(a,s,mid-1);
+    new_node->right=make_btree(a,mid+1,e);
+    
+    return new_node;
+}
+
+void pre_order_traversal(node*root)
+{
+    if(root==NULL)
+      return;
+      
+    cout<<root->data<<" ";
+    pre_order_traversal(root->left);
+    pre_order_traversal(root->right);
+    return;
+}
+
+
+int main() {
+	
+	int t; cin>>t;
+	
+	while(t--)
+	{
+	    int n; cin>>n; int a[n];
+	    
+	    for(int i=0;i<n;i++)
+	        cin>>a[i];
+	        
+	  node*root=make_btree(a,0,n-1);
+	  pre_order_traversal(root);
+	  
+	  cout<<endl;
+	        
+	}
+	
+
+	
+	return 0;
+}
