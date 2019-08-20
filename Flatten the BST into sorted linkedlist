@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+pair<node*,node*>flatten(node*root)
+{
+    pair<node*,node*>l;
+    
+    if(root==NULL)
+    {
+        l.first=NULL;
+        l.second=NULL;
+        return l;
+    }
+    
+    // leaf node
+    
+    if(root->left==NULL && root->right==NULL)
+       {
+           l.first=l.second=root;
+           return  l;
+       }
+    
+    if(root->left!=NULL && root->right==NULL)
+      {
+         pair<node*,node*> p=flatten(root->left);
+          p.second->right=root;
+          l.first=p.first
+          l.second=root;
+          return l;
+      }
+      
+      if(root->right!=NULL && root->left==NULL)
+      {
+          pair<node*,node*>p=flatten(root->right);
+          root->right=p.first;
+          l.first=root;
+          l.second=p.second;
+          return l;
+          
+      }
+      
+      if(root->left!=NULL && root->right!=NULL)
+      {
+          pair<node*,node*>ll=flatten(root->left);
+          pair<node*,node*>rl=flatten(root->ight);
+          ll.second->right=root;
+          root->right=rl.first;
+          l.first=ll.first;
+          l.second=rl.second;
+          return l;
+      }
+    
+    
+    
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+int main()
+{
+   
+}
