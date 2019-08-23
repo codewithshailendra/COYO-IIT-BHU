@@ -1,0 +1,84 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int precedence(char c)
+{
+    if(c=='^')
+      return 3;
+    else if(c=='*' || c=='/')
+      return 2;
+    else if(c=='+' || c=='-')
+      return 1;
+    else
+     return -1;
+}
+
+string post_fix(string s)
+{
+    int n=s.length();
+    stack<char>st;
+    st.push('N');
+    string ans;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(isalpha(s[i]))
+          ans+=s[i];
+        else if(s[i]=='(')
+           st.push('(');
+        else if(s[i]==')')
+        {
+            while(st.top()!='N' && st.top()!='(')
+            {
+                char c=st.top();
+                st.pop();
+                ans+=c;
+            }
+            
+            if(st.top()=='(')
+            {
+                st.pop();
+            }
+        }
+        else
+        {
+            while(st.top()!='N' && precedence(s[i])<=precedence(st.top()))
+            {
+                char c=st.top();
+                st.pop();
+                ans+=c;
+            }
+            
+            st.push(s[i]);
+        }
+           
+    }
+    
+    while(st.top()!='N')
+    {
+        char c=st.top();
+        st.pop();
+         ans+=c;
+    }
+    
+    return ans;
+    
+}
+
+
+
+
+
+int main() {
+	
+int t; cin>>t;
+
+ while(t--)
+ {
+     string s; cin>>s;
+     cout<<post_fix(s)<<endl;
+     
+ }
+	
+	return 0;
+}
