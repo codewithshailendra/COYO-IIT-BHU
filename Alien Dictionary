@@ -1,0 +1,65 @@
+string printOrder(string dict[], int N, int k)
+{
+   map<char,vector<char> >mp;
+   map<char,int>check;
+   
+   for(int i=0;i<N-1;i++)
+   {
+        string s1=dict[i];
+        string s2=dict[i+1];
+       for(int i=0;i<min(s1.length(),s2.length());i++)
+       {
+           check[s1[i]]++;
+           check[s2[i]]++;
+          if(s1[i]!=s2[i])
+          {
+              mp[s1[i]].push_back(s2[i]);
+              break;
+          }
+       }
+   }
+   
+   map<char,int>indegree;
+   
+   for(auto x:check)
+   {
+       indegree[x.first]=0;
+   }
+   
+   for(auto x:mp)
+      {
+          for(auto y:x.second)
+          {
+              indegree[y]++;
+          }
+      }
+      
+      string ans;
+      
+      queue<char>q;
+      
+      for(auto x:indegree)
+         if(x.second==0)
+            q.push(x.first);
+           
+           
+    
+    while(!q.empty())
+    {
+        char ch=q.front();
+        q.pop();
+         ans+=ch;
+         
+         for(auto x:mp[ch])
+         {
+             indegree[x]--;
+             
+             if(indegree[x]==0)
+                q.push(x);
+         }
+    }
+    
+  return ans;  
+    
+   
+}
