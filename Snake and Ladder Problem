@@ -1,62 +1,62 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int main() {
-	
-	int t; cin>>t;
-	
-	while(t--)
-	{
-	    int n; cin>>n; //pair<int,int> a[n];
-	    
-	    int mat[31];   fill(mat,mat+31,0);
-	    
-	    for(int i=0;i<=30;i++)
-	        mat[i]=-1;
-	    
-	    
-	    
-	    for(int i=1;i<=n;i++)
-	    {
-	        int s,e; cin>>s>>e;
-	        mat[s]=e;
-	  
-	    }
-	    
-	    //int ans=0;
-	    queue<int>q; map<int,bool>visited;
-	    q.push(0); visited[0]=true; map<int,int>distance; distance[0]=0;
-	    
-	    while(!q.empty())
-	    {
-	        int node=q.front();
-	        
-	        if(node==30)
-	            break;
-	            
-	       q.pop();     
-	        
-	        for(int nebr=node+1;nebr<=node+6 && nebr<=30;nebr++)
-	        {
-	            if(!visited[nebr])
-	            {
-	                distance[nebr]=1+distance[node];
-	                visited[nebr]=true;
-	                
-	                if(mat[nebr]!=-1)
-	                   q.push(mat[nebr]);
-	                 else
-	                   q.push(nebr);
-	            }
-	        }
-	    }
-	    
-	    cout<<distance[30]<<endl;
-	    
-
-	}
-	
-
-	
-	return 0;
+int main()
+{
+    int t; cin>>t;
+    
+    while(t--)
+    {
+        int n; cin>>n;
+        
+        int mat[31];  fill(mat,mat+31,-1);
+        
+          for(int i=1;i<=n;i++)
+               {
+                   int a,b; cin>>a>>b;
+                   mat[a]=b;
+               }
+               
+        queue<int>q; map<int,bool>visited; int dist[31]={0};
+        memset(dist,0,sizeof(dist));
+        
+        q.push(1); visited[1]=true;
+        
+        while(!q.empty())
+        {
+            int node=q.front();
+            
+            if(node==30)
+               break;
+            
+            q.pop();
+            
+            for(int i=node+1;i<=node+6 && i<=30 ;i++)
+            {
+                int k=i;
+                //visited[k]=true;
+                if(mat[i]!=-1)
+                   k=mat[i];
+                   
+                  if(!visited[k])
+                  {
+                      visited[k]=true;
+                      dist[k]=1+dist[node];
+                      q.push(k);
+                  }
+            }
+            
+            
+        }
+        
+        cout<<dist[30]<<endl;
+        
+        
+        
+    }
+    
+    
+    
+    return 0;
+    
 }
