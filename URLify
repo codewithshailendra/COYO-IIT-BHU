@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{  
+    
+    int t;  cin>>t;
+ while(t--)
+{	string s;  int n,i,j;   cin.ignore(); getline(cin,s);  
+	cin>>n;  int m= s.size();
+//	cout<<m<<endl;
+	for(i=0;i<m;i++)  
+	{
+	    if(s[i]==' ')
+	    {
+	        cout<<"%20";
+	    }
+	    else cout<<s[i];
+	}
+	cout<<endl;
+}
+
+	return 0;
+}
