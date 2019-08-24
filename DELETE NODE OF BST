@@ -1,0 +1,54 @@
+Node *deleteNode(Node *root,  int x)
+{
+    if(root==NULL)
+       return root;
+       
+    if(root->data>x)
+    {
+        root->left=deleteNode(root->left,x);
+        return root;
+    }
+    
+    if(root->data<x)
+    {
+        root->right=deleteNode(root->right,x);
+        return root;
+    }
+    
+    if(root->data==x)
+    {
+        if(root->left==NULL && root->right==NULL)
+        {
+            delete root;
+            return NULL;
+        }
+        
+         if(root->left!=NULL && root->right==NULL)
+        {
+            Node*temp=root->left;
+            delete root;
+            return temp;
+            
+        }
+        
+        if(root->right!=NULL && root->left==NULL)
+        {
+            Node*temp=root->right;
+            delete root;
+            return temp;
+        }
+        
+        Node*temp=root->right;
+        
+        while(temp->left!=NULL)
+             temp=temp->left;
+             
+             
+        root->data=temp->data;
+        root->right=deleteNode(root->right,temp->data);
+        return root;
+             
+    }
+    
+        
+}
