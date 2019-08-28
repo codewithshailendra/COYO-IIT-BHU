@@ -1,0 +1,304 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+map<int,vector<int> >mp;
+
+void bfs(int src)
+{
+    queue<int>q; unordered_map<int,bool>visited;  unordered_map<int,int>distance;
+    q.push(src); visited[src]=true; distance[src]=0;
+    
+    while(!q.empty())
+    {
+        int node=q.front();
+        cout<<node<<" ";
+        q.pop();
+        
+        for(auto x:mp[node])
+        {
+            if(!visited[x])
+            {
+                visited[x]=true;
+                distance[x]=1+distance[node];
+                q.push(x);
+            }
+        }
+    }
+    
+    cout<<endl<<"Printing distances of each node from "<<src<<" :"<<endl;
+    
+    for(auto x:distance)
+      cout<<x.first<<" : "<<x.second<<"     ";
+      
+      return;
+    
+    
+}
+
+void dfs_helper(int src, map<int,bool>&visited)
+{
+    cout<<src<<" ";
+    
+    for(auto x:mp[src])
+     {
+         if(!visited[x])
+          {
+              visited[x]=true;
+              dfs_helper(x,visited);
+          }
+     }
+     
+     return;
+}
+
+void dfs(int src)
+{
+    map<int,bool>visited;
+    visited[src]=true;
+    dfs_helper(src,visited);
+    
+    cout<<endl;
+    
+    return;
+}
+
+void topological_sort_BFS(int v)
+{
+    int indegree[v+1];  memset(indegree,0,sizeof(indegree));
+    queue<int>q;
+    
+    for(auto x:mp)
+       for(auto y:x.second)
+             indegree[y]++;
+             
+    for(int i=1;i<=v;i++)
+      if(indegree[i]==0)
+          q.push(i);
+          
+          
+    while(!q.empty())
+    {
+        int node=q.front();
+        cout<<node<<" ";
+        q.pop();
+        
+       for(auto x:mp[node])
+         {
+             indegree[x]--;
+             
+             if(indegree[x]==0)
+               q.push(x);
+         } 
+        
+    }
+    
+    return;
+    
+}
+
+void topological_sort_dfs(int src, unordered_map<int,bool>&visited,list<int>&l)
+{
+    for(auto x:mp[src])
+    {
+        if(!visited[x])
+          {
+              visited[x]=true;
+              topological_sort_dfs(x,visited,l);
+          }
+    }
+    
+    l.push_front(src);
+    return;
+}
+
+
+
+void topological_sort_DFS(int src)
+{
+    list<int>l;
+    unordered_map<int,bool>visited; visited[src]=true;
+    topological_sort_dfs(src,visited,l);
+    
+    for(auto x:l)
+      cout<<x<<" ";
+      
+    cout<<endl;  
+    
+    return;
+    
+}
+
+
+void connected_components_dfs(int src,map<int,bool>&visited)
+{
+      visited[src]=true;
+      
+      for(auto x:mp[src])
+      {
+          if(!visited[x])
+            connected_components_dfs(x,visited);
+      }
+      
+      return;
+}
+
+int connected_components(int v)
+{
+    map<int,bool>visited; int countr=0;
+    
+    for(int i=1;i<=v;i++)
+       {
+           if(!visited[i])
+           {
+               countr++;
+               connected_components_dfs(i,visited);
+           }
+       }
+       
+       return countr;
+}
+
+bool cycle_detection_undirectedGraph(int src)
+{
+    queue<int>q; unordered_map<int,int>visited;
+    unordered_map<int,int>parent; 
+    q.push(src); visited[src]=true; parent[src]=src;
+    
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        
+        for(auto x:mp[node])
+        {
+            if(visited[x] && parent[node]!=x)
+               return true;
+            else if(!visited[x])
+            {
+                visited[x]=true;
+                q.push(x);
+                parent[x]=node;
+            }
+        }
+    }
+    
+    return false;
+}
+
+void dijkastra(int src, unordered_map<int,int>&distance,int v, unordered_map<int,vector<pair<int,int>>>&mp)
+{
+    for(int i=1;i<=v;i++)
+      distance[i]=INT_MAX;
+      
+    distance[src]=0;
+    set< pair<int,int> >s;
+     s.insert(make_pair(0,src));
+     
+     
+    while(!s.empty())
+    {
+        auto p = *(s.begin());
+        int node=p.second;
+        int dist=p.first;
+        s.erase(s.begin());
+        
+        for(auto x:mp[node])
+        {
+            if(dist+x.second<distance[x.first])
+              {
+                  auto f=s.find(make_pair(distance[x.first],x.first));
+                  
+                  if(f!=s.end())
+                  {
+                      s.erase(f);
+                  }
+                  
+                 distance[x.first]=dist+x.second;
+                 s.insert(make_pair(distance[x.first],x.first));
+              }
+        }
+        
+        
+    }
+    
+    
+    
+       
+}
+
+void floyd_warshell_algo(int v,vector< vector<int> >&dp)
+{
+    for(int k=1;k<=v;k++)
+    {
+        for(int i=1;i<=v;i++)
+        {
+            for(int j=1;j<=v;j++)
+            {
+                if(dp[i][j]>dp[i][k]+dp[k][j])
+                   dp[i][j]=dp[i][k]+dp[k][j];
+            }
+        }
+    }
+    
+    return;
+}
+
+
+
+
+
+int main()
+{
+    int v,e; cin>>v>>e;
+    
+    for(int i=1;i<=e;i++)
+         {
+             int a,b; cin>>a>>b;
+             mp[a].push_back(b);
+             mp[b].push_back(a);
+         }
+         
+    cout<<"BFS: ";  bfs(1);  cout<<endl;
+    cout<<"DFS: ";  dfs(1);  cout<<endl;
+    
+    topological_sort_BFS(4);
+   topological_sort_DFS(1);
+  cout<<connected_components(8)<<endl;
+  cout<<cycle_detection_undirectedGraph(1);
+ 
+ unordered_map<int,vector<pair<int,int> > >mp;
+ 
+  vector< vector<int> >dp(v+1,vector<int>(v+1));
+   
+   for(int i=0;i<=v;i++)
+      for(int j=0;j<=v;j++)
+          {
+              if(i==j)
+                dp[i][j]=0;
+              else
+              dp[i][j]=1111;
+          }
+   
+ 
+ for(int i=1;i<=e;i++)
+    {
+        int a,b,c; cin>>a>>b>>c;
+        mp[a].push_back(make_pair(b,c));
+        dp[a][b]=c;
+    }
+    
+unordered_map<int,int>distance; 
+dijkastra(1,distance,v,mp);
+  
+   floyd_warshell_algo(v,dp);
+    
+    for(int i=1;i<=v;i++)
+    {
+        for(int j=1;j<=v;j++)
+           cout<<dp[i][j]<<" ";
+           
+        cout<<endl;   
+    }
+    
+     return 0;    
+}
