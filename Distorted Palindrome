@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+bool possible(string s)
+{
+    int n=s.length();
+    
+     int hash[26];   fill(hash,hash+26,0);   int countr=0;
+        
+        for(auto x:s)
+            hash[x-'a']++;
+            
+        for(int i=0;i<26;i++)    
+            {
+                if(hash[i]&1)
+                    countr++;
+                    
+                if(countr==1 && n%2==0)
+                    return false;
+                    
+                if(countr>1)
+                   return false;
+            }
+          
+        return true;  
+    
+}
+
+int swappings(string s)
+{
+    int n=s.length(); int ans=0;
+    
+    for(int i=0;i<n/2;i++)
+    {
+        int j=n-1-i;
+        while(j>i && s[i]!=s[j])
+              j--;
+              
+        for(int k=j;k<n-i-1;k++)
+            {
+                swap(s[k],s[k+1]);
+                ans++;
+                
+            }
+             
+    }
+    
+    return ans;
+}
+
+
+int main() 
+ {   
+    string s;
+    
+    while(true)
+    {
+        cin>>s;   int n=s.length();
+        
+        if(s=="0")
+           break;
+           
+       
+        if(possible(s))
+        {
+            cout<<swappings(s)<<endl;
+        }
+        else
+        {
+            cout<<"Impossible"<<endl;
+        }
+          
+    }
+	
+	
+	
+
+	return 0;
+}
