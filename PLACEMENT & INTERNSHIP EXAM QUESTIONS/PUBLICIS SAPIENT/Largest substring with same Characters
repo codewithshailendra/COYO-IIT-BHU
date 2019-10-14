@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+  string s; cin>>s; int n=s.length();
+  int ans=1,temp=1;
+  
+  for(int i=1;i<n;i++)
+  {
+      if(s[i]==s[i-1])
+      {
+          temp++;
+          ans=max(ans,temp);
+          
+      }
+      else
+      {
+          temp=1;
+      }
+      
+  }
+  
+  ans=max(ans,temp);
+  
+  cout<<ans<<endl;
+  
+  
+  
+  return 0;
+}
