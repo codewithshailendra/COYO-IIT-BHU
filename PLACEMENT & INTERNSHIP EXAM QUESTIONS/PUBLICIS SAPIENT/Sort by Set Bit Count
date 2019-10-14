@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool fun(pair<int,pair<int,int> >a, pair<int, pair<int,int> >b)
+{
+    if(a.first>b.first)
+        return true;
+    else if(a.first<b.first)
+        return false;
+    
+    return a.second.first<b.second.first;
+}
+
+
+int main() {
+    
+    int t; cin>>t;
+    
+    while(t--)
+    {
+         int n; cin>>n; int a[n]; vector< pair<int,pair<int,int> > >vp;
+    
+    for(int i=0;i<n;i++)
+     {     cin>>a[i];
+           int bits=__builtin_popcount(a[i]);
+           vp.push_back(make_pair(bits,make_pair(i,a[i])));
+    }
+    
+    sort(vp.begin(),vp.end(),fun);
+    
+    for(int i=0;i<n;i++)
+        cout<<vp[i].second.second<<" ";
+        
+        cout<<endl;
+        
+        
+        
+    }
+    
+   
+         
+    
+ 
+	return 0;
+}
