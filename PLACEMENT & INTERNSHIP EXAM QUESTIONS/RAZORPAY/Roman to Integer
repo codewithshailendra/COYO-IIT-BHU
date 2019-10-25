@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int fun(string s)
+{
+    int num[]={1,5,10,50,100,500,1000};
+    int rom[]={'I','V','X','L','C','D','M'};
+    
+    map<char,int>mp;
+    
+    for(int i=0;i<7;i++)
+       mp[rom[i]]=num[i];
+    
+    
+    
+    int ans=0;
+    
+    for(int i=0;i<s.length();i++)
+    {
+        int val1=mp[s[i]];
+        
+        if(i+1<s.length())
+        {
+            int val2 = mp[s[i+1]];
+            
+            if(val1>=val2)
+               ans+=val1;
+            else
+             {
+                 ans+=val2-val1;
+                 i++;
+             }
+        }
+        else
+          ans+=val1;
+        
+        
+    }
+    
+    return ans;
+
+    
+}
+
+
+int main()
+{
+    string s; cin>>s;
+    cout<<fun(s)<<endl;
+    
+    
+    
+    
+    
+    return 0;
+}
